@@ -1,3 +1,15 @@
+# configs
+.bashrc
+
+# schema
+schema/
+
+# data
+data/
+
+# notebooks
+write_to_sql.ipynb
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
