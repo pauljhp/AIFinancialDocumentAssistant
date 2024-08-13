@@ -1,0 +1,129 @@
+title = "Task Descriptions"
+
+[esg_tasks]
+system = """You are an expert in ESG analysis, experianced \
+in analyzing companies' enviromental, social, and governance (ESG) practices.
+You will be given multiple tasks to assess a company's performance, based
+on a rubrics. Work with your teammates to collect information about these tasks
+and assess the companie's performances to the best of your knowledge. 
+"""
+
+[esg_tasks.corporate_governance]
+board_structure = """Below are the rubrics for assessing a company's corporate governance. \
+<rubrics>
+| **1st Tier - 100.00** | \
+* Board independence ≥75% \
+* Key committee independence 100% \
+* Average NED tenure ≤ 10 years; consistent board refreshment \
+* Separate Chair/CEO, Independent Chair \
+* No overboarded directors \
+* No attendance issues \
+* Comprehensive skills matrix \
+| **2nd Tier - 75.00** | \
+* Board independence ≥ 67% \
+* Key committee independence: 100% (Audit and Remuneration) \
+* Average NED tenue ≤ 10 years \
+* Separate Chair/CEO, Independent Chair or Lead Independent Director \
+* No major overboarding \
+* No major director attendance issues \
+* Skills matrix \
+| **3rd Tier - 50.00** | \
+* Board independence ≥ 50% \
+* Key committee independence: 100% (Audit) and ≥ 67% (Remuneration) \
+* Some NED tenure ≥ 10 years \
+* Combined Chair/CEO, Lead Independent Director \
+* Some overboarding \
+* Some director attendance issues \
+| **4th Tier - 25.00** | \
+* Board independence < 50% \
+* Key committee independence: < 100% (Audit) and ≤ 66% (Remuneration) ≤ 50% (Nomination) \
+* Executives (other than CEO) on Board \
+* Average NED tenue ≥ 10 years and no new directors in the last 3 years (entrenchment) \
+* No Independent Chair or Lead Independent Director \
+* Numerous directors w/ overboarding and/or attendance issues \
+* Significant votes against directors \
+| **5th Tier - 0.00** | \
+* Board independence < 33% \
+* Lack of key board committees or lack of independence on key committees: < 100% (Audit) and ≤ 66% (Remuneration) ≤ 50% (Nomination) \
+* Numerous directors with excessive tenures, no new directors in the last 3 years \
+* No Independent Chair or Lead Independent Director \
+* Executives on key committee * Board size < 6 or > 15 \
+* Significant votes against directors \
+* Presence of problem directors (associated w/financial, environmental, social or governance failures) | \
+</rubrics>\
+Based on the above, assess the board structure.
+"""
+
+exec_compensation = """Below are the rubrics for assessing the executive compensation. 
+<rubrics> \
+| **1st Tier - 100.00** | \
+* Consistent alignment of compensation and company performance \
+* Appropriate balance between fixed/variable compensation and short-term incentive (STI)/ long-term incentive (LTI). \
+* Performance metrics relevant to business strategy, clearly disclosed and defined. Multiple performance metrics used; no overreliance on a single metric. \
+* Sufficiently challenging performance goal and targets. \
+* Presence of relevant and meaningful ESG/Sustainability metrics (STI or LTI) \
+* Clawback and share ownership guidelines in place * Annual advisory vote on executive compensation. \
+* Simple, clear, but comprehensive remuneration disclosure and reporting. 
+| **2nd Tier - 75.00** | \
+* Alignment of compensation and company performance \
+* Performance metrics disclosed and defined; multiple performance metrics used. \
+* Presence of ESG/Sustainability metrics (STI or LTI) \
+* Clawback in place and share ownership guidelines in place \
+* Appropriate balance between fixed/variable compensation and STI/LTI. \
+* Annual advisory vote on executive compensation. \
+* Transparent remuneration disclosure and reporting. \
+| **3rd Tier - 50.00** | \
+* Alignment of compensation and company performance \
+* Performance metrics disclosed but not necessarily defined; use of single performance metric in STI or LTI. \
+* Concerns about ratio of fixed/variable compensation or STI/LTI. \
+* Clawback \
+* Adequate transparency and reporting \
+* No ESG metrics \
+* Annual advisory vote on executive compensation. \
+| **4th Tier - 25.00** | \
+* Weak alignment of compensation and company performance \
+* Structure is not sufficiently oriented to the long-term (e.g. more fixed than variable, more STI than LTI, time-based) \
+* Performance metrics not sufficiently challenging, relevant or well-defined \
+* History of lowering of performance targets \
+* No clawback \
+* No or triennial advisory vote on executive compensation. \
+* Support for compensation proposals consistently below average (<90%) \
+* Opaque disclosures \
+| **5th Tier - 0.00** | \
+* Ongoing, severe misalignment of pay with performance \
+* Performance metrics fully absent \
+* Overreliance on discretionary or guaranteed compensation \
+* Repeated use of Golden Hellos or Golden Coffins \
+* Failed compensation proposals \
+* No advisory vote on executive compensation or no compensation information disclosed |
+</rubrics>
+Based on this set of rubrics, assess the executive compensation.
+"""
+
+shareholder_rights = """Below are the rubrics for assessing the shareholder rights protection practices.
+<rubrics>
+| **1st Tier - 100.00** | 
+* No structural impediments (dual class shares, dominant shareholders or controlling) or takeover defenses (poison pill, super-majority provisions, classified board) in place * Proxy access provision in place; right to call special meetings * Shareholder consent sought prior to implementing any structures that may limit shareholder rights 
+| **2nd Tier - 50.00** | 
+* Some structural impediments (dual class shares, dominant shareholders or controlling) or takeover defenses (poison pill, super-majority provisions, classified board) * Isolated instances of actions that restrict shareholder rights without shareholder consent 
+| **3rd Tier - 0.00** | * Significant structural impediments (dual class shares, dominant shareholders or controlling) and takeover defenses (poison pill, super-majority provisions, classified board) in place * Repeated efforts to limit shareholder rights without shareholder consent * Will of shareholders is subverted (e.g. failure to implement SHR proposal receiving majority support or address failed MGMT proposal) |
+</rubrics>
+Based on this set of rubrics, assess the company's shareholder rights protection practices.
+"""
+
+internal_controls = """Below are the rubrics for assessing the internal controls
+<rubrics>
+| **1st Tier - 100.00** | 
+* Auditor is sufficiently independent * Lack of RPTs * No restatements or late filings * No accounting investigations * Minimal use of tax avoidance strategies ||| **2nd Tier - 50.00** | * Presence of some practices that may reduce auditor integrity and independence * Lack of significant RPTs * Isolated restatement or late filings (in last five years) * Isolated material weakness in internal controls (in last five years) * No significant use of tax havens or tax avoidance 
+| **3rd Tier - 0.00** | 
+* Auditor is not independent * Ongoing presence of RPTs that are not in SHR’s best interests * History of restatements, late filings or material weaknesses in internal controls * Ongoing accounting investigation * Poor transparency in financial statements * Significant use of tax havens; reliance on tax avoidance central to company’s strategy |
+</rubrics>
+Based on the rubrics, assess the company's internal control practices.
+"""
+
+governance_of_sustainability = """Below are the rubrics for assessing governance of sustainability.
+<rubrics>
+| **1st Tier - 100.00** | * Clear delineation of Board’s role in overseeing sustainability-related issues and management’s role in assessing and managing sustainability issues. * Dedicated director(s) to oversee climate-related risk w/specific environmental/climate expertise. * Oversight of sustainability issues by a dedicated board Sustainability/ESG Committee or under the remit of a board subcommittee (e.g. Audit/Risk Committee, etc.). * Periodic training to enhance directors’ ESG expertise * Description of processes and frequency by which the board and management is informed about sustainability issues. * Description of how board and management oversees and monitors progress against sustainability strategy/goals. ||| **2nd Tier - 50.00** | * Board’s role in overseeing sustainability-related issues or management’s role in assessing and managing sustainability issues is disclosed but may not be fully developed. * Oversight of sustainability issues falls under the remit of the entire board. * Dedicated director(s) with sustainability expertise (relevant to company’s business and circumstance). * Description of processes and frequency by which the board or management is informed about sustainability issues. * Description of how board or management oversees and monitors progress against sustainability strategy/goals ||| **3rd Tier - 0.00** | * Board and management oversight of sustainability issues is quite basic, not disclosed or not present. * Sustainability expertise of individual board members or members of management not disclosed or not present. ||
+</rubrics>
+Assess its governance of sustainability.
+"""
