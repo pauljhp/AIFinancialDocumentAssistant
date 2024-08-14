@@ -3,9 +3,26 @@ from crewai_tools import BaseTool
 from data_models import CompanyInfo
 from typing import Optional, List, Dict
 import toml
+import utils
 
 
-
+def populate_company_name(
+        task_description_template: str, 
+        company_info: CompanyInfo
+        ) -> str:
+    """populate the task description with company name
+    :param task_description_template: The template to use. Should be formatted 
+    like this:
+    `instruction`
+    <rubrics>
+    `rubrics`
+    </rubrics>
+    `according to this, access {company}'s performance`
+    """
+    company = utils.coalesce(company_info.short_name, company_info.name)
+    instruction = eval("f" + "'''" + task_description_template + \
+                       "'''" + ".format(company)" )
+    return instruction
 
 class NewESGReview:
     def __init__(
@@ -23,31 +40,41 @@ class NewESGReview:
 
     def corp_governance(self, tools: Optional[List[BaseTool]]):
         board_structure = Task(
-            description=self.task_descriptions["corporate_governance"]["board_structure"],
+            description=populate_company_name(
+                self.task_descriptions["corporate_governance"]["board_structure"],
+                company_info=self.company),
             async_execution=True,
             tools=tools,
             expected_output=self.expected_output
         )
         executive_comp = Task(
-            description=self.task_descriptions["corporate_governance"]["exec_compensation"],
+            description=populate_company_name(
+                self.task_descriptions["corporate_governance"]["exec_compensation"],
+                company_info=self.company),
             async_execution=True,
             tools=tools,
             expected_output=self.expected_output
         )
         shareholder_rights = Task(
-            description=self.task_descriptions["corporate_governance"]["shareholder_rights"],
+            description=populate_company_name(
+                self.task_descriptions["corporate_governance"]["shareholder_rights"],
+                company_info=self.company),
             async_execution=True,
             tools=tools,
             expected_output=self.expected_output
         )
         internal_controls = Task(
-            description=self.task_descriptions["corporate_governance"]["internal_controls"],
+            description=populate_company_name(
+                self.task_descriptions["corporate_governance"]["internal_controls"],
+                company_info=self.company),
             async_execution=True,
             tools=tools,
             expected_output=self.expected_output
         )
         governance_of_sustainability = Task(
-            description=self.task_descriptions["corporate_governance"]["governance_of_sustainability"],
+            description=populate_company_name(
+                self.task_descriptions["corporate_governance"]["governance_of_sustainability"],
+                company_info=self.company),
             async_execution=True,
             tools=tools,
             expected_output=self.expected_output
