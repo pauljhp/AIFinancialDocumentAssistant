@@ -1,4 +1,4 @@
-from crewai import Task
+from crewai import Task, Agent
 from crewai_tools import BaseTool
 from data_models import CompanyInfo
 from typing import Optional, List, Dict
@@ -27,39 +27,49 @@ def populate_company_name(
 class NewESGReview:
     def __init__(
             self, 
-            company_info: CompanyInfo, 
-            task_descriptions: Dict[str, str]
+            company_info: CompanyInfo,
+            task_descriptions: Dict[str, str],
+            agent: Optional[Agent]=None,
+            async_exec: bool=False,
             ):
         self.company = company_info
         self.task_descriptions = task_descriptions
         self.expected_output = ("Detailed analysis of each point, together with your scoring "
                 "and justification. You should write your answers in bullet point "
                 "format, and clearly quote your sources, as well as give detailed "
-                "justification. "                
+                "justification. " 
                 )
+        self.async_exec = async_exec
+        self.agent = agent # TODO - bind tools with agents
 
-    def corp_governance(self, tools: Optional[List[BaseTool]]):
+    def corp_governance(
+            self, 
+            tools: Optional[List[BaseTool]],
+            ):
         board_structure = Task(
             description=populate_company_name(
                 self.task_descriptions["corporate_governance"]["board_structure"],
                 company_info=self.company),
-            async_execution=True,
+            async_execution=self.async_exec,
             tools=tools,
+            agent=self.agent,
             expected_output=self.expected_output
         )
         executive_comp = Task(
             description=populate_company_name(
                 self.task_descriptions["corporate_governance"]["exec_compensation"],
                 company_info=self.company),
-            async_execution=True,
+            async_execution=self.async_exec,
             tools=tools,
+            agent=self.agent,
             expected_output=self.expected_output
         )
         shareholder_rights = Task(
             description=populate_company_name(
                 self.task_descriptions["corporate_governance"]["shareholder_rights"],
                 company_info=self.company),
-            async_execution=True,
+            async_execution=self.async_exec,
+            agent=self.agent,
             tools=tools,
             expected_output=self.expected_output
         )
@@ -67,7 +77,8 @@ class NewESGReview:
             description=populate_company_name(
                 self.task_descriptions["corporate_governance"]["internal_controls"],
                 company_info=self.company),
-            async_execution=True,
+            async_execution=self.async_exec,
+            agent=self.agent,
             tools=tools,
             expected_output=self.expected_output
         )
@@ -75,7 +86,8 @@ class NewESGReview:
             description=populate_company_name(
                 self.task_descriptions["corporate_governance"]["governance_of_sustainability"],
                 company_info=self.company),
-            async_execution=True,
+            async_execution=self.async_exec,
+            agent=self.agent,
             tools=tools,
             expected_output=self.expected_output
         )

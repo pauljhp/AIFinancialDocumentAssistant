@@ -4,5 +4,7 @@ from .llama_index_settings import (
     llm,
     function_llm,
     embed_model,
-    langfuse_callback_handler
+    langfuse_callback_handler,
+    langfuse_handler, # for langchain
+    callback_manager 
 )

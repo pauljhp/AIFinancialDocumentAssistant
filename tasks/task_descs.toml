@@ -56,7 +56,7 @@ board_structure = """Below are the rubrics for assessing a company's corporate g
 - Significant votes against directors \
 - Presence of problem directors (associated w/financial, environmental, social or governance failures) \
 </rubrics>\
-Based on the above, assess the board structure.
+Based on the rubrics and the information available, assess company: {company}'s the board structure.
 """
 
 exec_compensation = """Below are the rubrics for assessing the executive compensation. 
@@ -107,7 +107,7 @@ exec_compensation = """Below are the rubrics for assessing the executive compens
 - Failed compensation proposals \
 - No advisory vote on executive compensation or no compensation information disclosed 
 </rubrics>
-Based on this set of rubrics, assess the executive compensation.
+Based on the rubrics and the information available, assess company: {company}'s executive compensation.
 """
 
 shareholder_rights = """Below are the rubrics for assessing the shareholder rights protection practices.
@@ -126,7 +126,7 @@ shareholder_rights = """Below are the rubrics for assessing the shareholder righ
 - Repeated efforts to limit shareholder rights without shareholder consent 
 - Will of shareholders is subverted (e.g. failure to implement SHR proposal receiving majority support or address failed MGMT proposal) 
 </rubrics>
-Based on this set of rubrics, assess the company's shareholder rights protection practices.
+Based on the rubrics and the information available, assess company: {company}'s shareholder rights protection practices.
 """
 
 internal_controls = """Below are the rubrics for assessing the internal controls
@@ -151,7 +151,7 @@ internal_controls = """Below are the rubrics for assessing the internal controls
 - Ongoing accounting investigation * Poor transparency in financial statements 
 - Significant use of tax havens; reliance on tax avoidance central to company’s strategy 
 </rubrics>
-Based on the rubrics, assess the company's internal control practices.
+Based on the rubrics and the information available, assess company: {company}'s internal control practices.
 """
 
 governance_of_sustainability = """Below are the rubrics for assessing governance of sustainability.
@@ -176,7 +176,7 @@ governance_of_sustainability = """Below are the rubrics for assessing governance
 - Board and management oversight of sustainability issues is quite basic, not disclosed or not present. 
 - Sustainability expertise of individual board members or members of management not disclosed or not present. 
 </rubrics>
-Assess company: {company}'s governance of sustainability.
+Based on the rubrics and the information available, assess company: {company}'s governance of sustainability.
 """
 
 [esg_tasks.edi_hcm]
@@ -202,4 +202,5 @@ diversity_in_leadership = """
 
 **5th Tier - 0.00**
 - Fifth tier companies have no women on the board or in executive management.
-</rubrics>"""
+</rubrics>
+Based on the rubrics and the information available, assess company: {company}'s diversity in leadership"""

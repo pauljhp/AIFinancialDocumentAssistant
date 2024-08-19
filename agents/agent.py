@@ -2,18 +2,19 @@ from crewai import Agent
 from settings import (
     llm,
     function_llm,
-    langfuse_callback_handler
+    # langfuse_callback_handler
 )
-from tools import RetrievalTools
+# from tools import RetrievalTools
 
 def get_editor(tools):
     editor = Agent(
-        role="Editor",
+        role="editor",
         goal=("Edit the raw text your team members created into succinct, "
         "precise and professional texts."),
         backstory=("You are an exprienced editor in the financial services and "
                 "investment management industry. "),
         llm=llm,
+        max_iter=50, # FIXME - either pass to config or set global constant
         function_calling_llm=function_llm,
         tools=tools
         # callbacks=[langfuse_callback_handler]
@@ -29,6 +30,10 @@ def get_esg_analyst(tools):
                 "relevant information. Use only the information provided to you."
                 ),
         llm=llm,
-        tools=tools
+        allow_delegation=False,
+        function_calling_llm=function_llm,
+        max_iter=25, # FIXME - either pass to config or set global constant
+        tools=tools,
+        verbose=True
     )
     return esg_report_analyst
