@@ -50,7 +50,7 @@ def get_query_engine_tool(
         )
     else:
         engine = index.as_query_engine(llm=li_llm)
-    LlamaIndexTool.from_query_engine(
+    query_tool = LlamaIndexTool.from_query_engine(
         engine,
         name="Vector DB Retrieval Tool",
         description=("Tool for retrieving information fromm the vector "
