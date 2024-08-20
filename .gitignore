@@ -11,6 +11,9 @@ db/
 # notebooks
 write_to_sql.ipynb
 
+# trace files
+test/trace.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

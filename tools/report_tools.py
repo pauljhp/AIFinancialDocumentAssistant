@@ -1,5 +1,5 @@
 from crewai_tools import tool, BaseTool, LlamaIndexTool
-from pydantic import model_validator, BaseModel
+from pydantic import model_validator, BaseModel, Field
 from settings import li_llm, llm
 from dbs import get_index, get_query_engine
 from data_models import CompanyInfo
@@ -17,14 +17,14 @@ from typing import List, Dict, Annotated
 
 
 class QueryEngineSchema(BaseModel):
-    question: Annotated[str,
-                        "The question you are tring to ask to the database. "]
+    question: str = Field(...,
+                          description="The question you are tring to ask to the database. ")
 
 
 class QueryEngineResponse(BaseModel):
-    response: Annotated[str, "The immediate response"]
-    sources: Annotated[str,
-                       "The source of the information, converted to string"]
+    response: str = Field(..., description="The immediate response")
+    sources: str = Field(...,
+                         description="The source of the information, converted to string")
 
 
 def get_query_engine_tool(
@@ -50,21 +50,25 @@ def get_query_engine_tool(
         )
     else:
         engine = index.as_query_engine(llm=li_llm)
-    query_tool = LlamaIndexTool.from_query_engine(
-        engine,
-        name="Vector DB Retrieval Tool",
-        description=("Tool for retrieving information fromm the vector "
-                     "store about a particular company. You inputs MUST be a string."),
-    )
-# query_tool = QueryEngineTool(
+    # query_tool = LlamaIndexTool.from_query_engine(
     #     query_engine=engine,
-    #     metadata=ToolMetadata(
-    #         name="Vector DB Retrieval Tool",
-    #         description=("Tool for retrieving information fromm the vector "
-    #             "store about a particular company. You inputs MUST be a string."),
-    #         fn_schema=QueryEngineSchema
-    #         )
-    #     ).to_langchain_tool()
+    #     name="Vector DB Retrieval Tool",
+    #     description=("Tool for retrieving information fromm the vector "
+    #                  "store about a particular company. You inputs MUST be a string."),
+    #     args_schema=QueryEngineSchema
+    # )
+    query_tool = QueryEngineTool(
+        query_engine=engine,
+        metadata=ToolMetadata(
+            name="Vector DB Retrieval Tool",
+            description=("Tool for retrieving information fromm the vector "
+                         "store about a particular company. You inputs MUST be a string."),
+            fn_schema=QueryEngineSchema
+        )
+    )
+    print(query_tool.metadata)
+    # query_tool = LlamaIndexTool.from_tool(query_tool)
+    query_tool = query_tool.to_langchain_tool()
     return query_tool
 
 
@@ -77,7 +81,7 @@ class RetrievalTools(BaseTool):
     company_info: CompanyInfo
     collection_name: str
 
-    @model_validator(mode="before")
+    @ model_validator(mode="before")
     def setup_engine(cls, values):
         # TODO - add support for multiple collections
         company_info = values.get("company_info")

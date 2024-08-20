@@ -7,9 +7,9 @@ import utils
 
 
 def populate_company_name(
-        task_description_template: str, 
+        task_description_template: str,
         company_info: CompanyInfo
-        ) -> str:
+) -> str:
     """populate the task description with company name
     :param task_description_template: The template to use. Should be formatted 
     like this:
@@ -20,32 +20,33 @@ def populate_company_name(
     `according to this, access {company}'s performance`
     """
     company = utils.coalesce(company_info.short_name, company_info.name)
-    instruction = eval("f" + "'''" + task_description_template + \
-                       "'''" + ".format(company)" )
+    instruction = eval("f" + "'''" + task_description_template +
+                       "'''" + ".format(company)")
     return instruction
+
 
 class NewESGReview:
     def __init__(
-            self, 
+            self,
             company_info: CompanyInfo,
             task_descriptions: Dict[str, str],
-            agent: Optional[Agent]=None,
-            async_exec: bool=False,
-            ):
+            agent: Optional[Agent] = None,
+            async_exec: bool = False,
+    ):
         self.company = company_info
         self.task_descriptions = task_descriptions
         self.expected_output = ("Detailed analysis of each point, together with your scoring "
-                "and justification. You should write your answers in bullet point "
-                "format, and clearly quote your sources, as well as give detailed "
-                "justification. " 
-                )
+                                "and justification. You should write your answers in bullet point "
+                                "format, and clearly quote your sources, as well as give detailed "
+                                "justification. "
+                                )
         self.async_exec = async_exec
-        self.agent = agent # TODO - bind tools with agents
+        self.agent = agent  # TODO - bind tools with agents
 
     def corp_governance(
-            self, 
+            self,
             tools: Optional[List[BaseTool]],
-            ):
+    ):
         board_structure = Task(
             description=populate_company_name(
                 self.task_descriptions["corporate_governance"]["board_structure"],
@@ -93,10 +94,10 @@ class NewESGReview:
         )
         return [
             board_structure,
-            executive_comp,
-            shareholder_rights,
-            internal_controls,
-            governance_of_sustainability
+            # executive_comp,
+            # shareholder_rights,
+            # internal_controls,
+            # governance_of_sustainability
         ]
 
     # def edi_hcm()
