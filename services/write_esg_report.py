@@ -33,7 +33,7 @@ def analyze_esg(company_info, async_exec: bool = False):
         collection_name="dev_esg_collection")
 
     # get_query_engine_tool(
-    #         company_info=company_info,
+    #         company_info=compny_info,
     #         collection_name="dev_esg_collection"
     #     )
 
@@ -55,17 +55,18 @@ def analyze_esg(company_info, async_exec: bool = False):
     )
     # run_id = langfuse_handler.session_id
     crew = Crew(
-        agents=[esg_agent],
+        agents=[esg_agent, editor],
         tasks=tasks,
-        # process=Process.hierarchical,
-        process=Process.sequential,
+        process=Process.hierarchical,
+        # process=Process.sequential,
         verbose=True,
         # manager_llm=function_llm,
-        # manager_agent=supervisor,
+        manager_agent=supervisor,
         memory=True,
         planning=False,
         planning_llm=function_llm,
-        function_calling_llm=function_llm,
+        # function_calling_llm=function_llm,
+        # BUG - function calling llm causes crewai.tools.tool_usage.ToolUsage._tool_calling to use ToolCalling/InstructorToolCalling and pass them to CrewPyandanticOutputParser. These are BaseModel subclasses so code will fail
         output_log_file="outputs/outputlog.log",
         # step_callback=lambda x: langfuse_handler.on_tool_start(x, run_id=run_id, input_str="tool_call"),
         # task_callback=langfuse_handler.on_agent_finish,

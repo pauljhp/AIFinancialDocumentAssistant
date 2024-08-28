@@ -148,8 +148,8 @@ class RetrievalTools(BaseTool):
             engine = index.as_query_engine(llm=li_llm)
 
         # if not question: 
-        Printer().print(content=f"kwargs: {kwargs}", color="yellow")
-        Printer().print(content=kwargs.get("question"), color="yellow")
+        # Printer().print(content=f"kwargs: {kwargs}", color="yellow")
+        # Printer().print(content=kwargs.get("question"), color="yellow")
         question = kwargs.get("question")
         if question:
             context = engine.query(question)

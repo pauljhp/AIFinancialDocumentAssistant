@@ -15,7 +15,7 @@ def get_editor(tools):
                 "investment management industry. "),
         llm=llm,
         max_iter=10, # FIXME - either pass to config or set global constant
-        function_calling_llm=function_llm,
+        # function_calling_llm=function_llm,
         tools=tools
         # callbacks=[langfuse_callback_handler]
     )
@@ -33,8 +33,8 @@ def get_esg_analyst(tools):
                 ),
         llm=llm,
         allow_delegation=False,
-        # function_calling_llm=function_llm,
-        max_iter=5, # FIXME - either pass to config or set global constant
+        # function_calling_llm=function_llm, # BUG - function calling llm causes crewai.tools.tool_usage.ToolUsage._tool_calling to use ToolCalling/InstructorToolCalling and pass them to CrewPyandanticOutputParser. These are BaseModel subclasses so code will fail
+        max_iter=25, # FIXME - either pass to config or set global constant
         tools=tools,
         verbose=True
     )

@@ -55,7 +55,7 @@ class NewESGReview:
             tools=tools,
             agent=self.agent,
             expected_output=self.expected_output,
-            output_file="workdir/corporate_governance.md"
+            output_file="workdir/corporate_governance_board.md"
         )
         executive_comp = Task(
             description=populate_company_name(
@@ -64,7 +64,8 @@ class NewESGReview:
             async_execution=self.async_exec,
             tools=tools,
             agent=self.agent,
-            expected_output=self.expected_output
+            expected_output=self.expected_output,
+            output_file="workdir/corporate_governance_execcomp.md"
         )
         shareholder_rights = Task(
             description=populate_company_name(
@@ -73,7 +74,8 @@ class NewESGReview:
             async_execution=self.async_exec,
             agent=self.agent,
             tools=tools,
-            expected_output=self.expected_output
+            expected_output=self.expected_output,
+            output_file="workdir/corporate_governance_shrights.md"
         )
         internal_controls = Task(
             description=populate_company_name(
@@ -82,7 +84,8 @@ class NewESGReview:
             async_execution=self.async_exec,
             agent=self.agent,
             tools=tools,
-            expected_output=self.expected_output
+            expected_output=self.expected_output,
+            output_file="workdir/int_cont.md"
         )
         governance_of_sustainability = Task(
             description=populate_company_name(
@@ -91,14 +94,15 @@ class NewESGReview:
             async_execution=self.async_exec,
             agent=self.agent,
             tools=tools,
-            expected_output=self.expected_output
+            expected_output=self.expected_output,
+            output_file="workdir/gov_sus.md"
         )
         return [
             board_structure,
-            # executive_comp,
-            # shareholder_rights,
-            # internal_controls,
-            # governance_of_sustainability
+            executive_comp,
+            shareholder_rights,
+            internal_controls,
+            governance_of_sustainability
         ]
 
     # def edi_hcm()
