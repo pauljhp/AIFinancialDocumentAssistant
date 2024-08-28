@@ -54,7 +54,8 @@ class NewESGReview:
             async_execution=self.async_exec,
             tools=tools,
             agent=self.agent,
-            expected_output=self.expected_output
+            expected_output=self.expected_output,
+            output_file="workdir/corporate_governance.md"
         )
         executive_comp = Task(
             description=populate_company_name(

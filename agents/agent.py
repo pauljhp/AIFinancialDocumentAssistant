@@ -14,7 +14,7 @@ def get_editor(tools):
         backstory=("You are an exprienced editor in the financial services and "
                 "investment management industry. "),
         llm=llm,
-        max_iter=50, # FIXME - either pass to config or set global constant
+        max_iter=10, # FIXME - either pass to config or set global constant
         function_calling_llm=function_llm,
         tools=tools
         # callbacks=[langfuse_callback_handler]
@@ -28,11 +28,13 @@ def get_esg_analyst(tools):
         backstory=("You are an experienced ESG analyst. You have access to "
                 "the relevant ESG and annual reports. Your task is to find the "
                 "relevant information. Use only the information provided to you."
+                "If you use the `Vector DB Retrieval Tool` tool, you must "
+                "pass in a question."
                 ),
         llm=llm,
         allow_delegation=False,
-        function_calling_llm=function_llm,
-        max_iter=25, # FIXME - either pass to config or set global constant
+        # function_calling_llm=function_llm,
+        max_iter=5, # FIXME - either pass to config or set global constant
         tools=tools,
         verbose=True
     )

@@ -11,6 +11,10 @@ db/
 # notebooks
 write_to_sql.ipynb
 
+# agent workding dir
+workdir/
+outputs/
+
 # trace files
 test/trace.json
 

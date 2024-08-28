@@ -6,7 +6,7 @@ def coalesce(*arg, return_val: Optional[Any]=None):
     """coalesce the inputs and return the first non-Null value
     If all null, return the `reeturn_val` value"""
     for val in arg:
-        if val is not None:
+        if val:
             return val
     if return_val:
         return return_val

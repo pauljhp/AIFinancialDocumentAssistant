@@ -50,7 +50,7 @@ llm = AzureChatOpenAI(
 
 function_llm = AzureChatOpenAI(
     deployment_name=os.getenv("AZURE_OPENAI_GPT4_DEPLOYMENT"),
-    model_name="gpt-4",
+    model_name="gpt-4", # GPT-4 has better function calling capabilities
     api_key=os.getenv("AZURE_OPENAI_GPT4_KEY"),
     api_version=os.getenv("OPENAI_API_VERSION"),
     azure_endpoint=os.getenv("AZURE_OPENAI_GPT4_ENDPOINT"),

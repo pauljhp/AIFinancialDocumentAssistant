@@ -8,9 +8,9 @@ from tasks import get_new_esg_review_task
 from tools import (
     get_query_engine_tool,
     RetrievalTools,
-    SearchTools
+    # SearchTools
 )
-from crewai_tools import DirectoryReadTool
+from crewai_tools import DirectoryReadTool, FileReadTool, FileWriterTool
 from tempfile import TemporaryDirectory
 from crewai import Crew, Agent, Task, Process
 from settings import (
@@ -23,20 +23,25 @@ import os
 
 
 temp_dir = TemporaryDirectory()
-editor_tool = DirectoryReadTool(directory=temp_dir.name)
+editor_tool = DirectoryReadTool(directory="workdir")
 
 
 def analyze_esg(company_info, async_exec: bool = False):
     set_global_configs()  # TODO - change to a decorator
-    retrieval_tool = get_query_engine_tool(
+    retrieval_tool = RetrievalTools(
         company_info=company_info,
-        collection_name="dev_esg_reports"
-    )
-    # RetrievalTools(
-    #     company_info=company_info,
-    #     collection_name="dev_esg_reports")
+        collection_name="dev_esg_collection")
 
-    tools = [retrieval_tool] + [SearchTools.search_internet]
+    # get_query_engine_tool(
+    #         company_info=company_info,
+    #         collection_name="dev_esg_collection"
+    #     )
+
+    tools = [retrieval_tool] + [
+        # DirectoryReadTool("workdir"), 
+        # FileReadTool(), 
+        FileWriterTool()
+        ]
     supervisor = get_supervisor(coworkers=["editor", "esg_analyst"])
     esg_agent = get_esg_analyst(
         tools=tools
@@ -48,8 +53,9 @@ def analyze_esg(company_info, async_exec: bool = False):
         async_exec=async_exec,
         agent=esg_agent
     )
+    # run_id = langfuse_handler.session_id
     crew = Crew(
-        agents=[esg_agent, editor],
+        agents=[esg_agent],
         tasks=tasks,
         # process=Process.hierarchical,
         process=Process.sequential,
@@ -60,7 +66,9 @@ def analyze_esg(company_info, async_exec: bool = False):
         planning=False,
         planning_llm=function_llm,
         function_calling_llm=function_llm,
-        # task_callback=langfuse_callback_handler,
+        output_log_file="outputs/outputlog.log",
+        # step_callback=lambda x: langfuse_handler.on_tool_start(x, run_id=run_id, input_str="tool_call"),
+        # task_callback=langfuse_handler.on_agent_finish,
         # config={"callbacks": callback_manager},
         embedder={
             "provider": "azure_openai",

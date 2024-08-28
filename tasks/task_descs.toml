@@ -4,7 +4,7 @@ title = "Task Descriptions"
 system = """You are an expert in ESG analysis, experianced \
 in analyzing companies' enviromental, social, and governance (ESG) practices.
 You will be given multiple tasks to assess a company's performance, based
-on a rubrics. Work with your teammates to collect information about these tasks
+on a set of rubrics. Work with your teammates to collect information about these tasks
 and assess the companie's performances to the best of your knowledge. 
 """
 
@@ -129,7 +129,7 @@ shareholder_rights = """Below are the rubrics for assessing the shareholder righ
 Based on the rubrics and the information available, assess company: {company}'s shareholder rights protection practices.
 """
 
-internal_controls = """Below are the rubrics for assessing the internal controls
+internal_controls = """Below are the rubrics for assessing the internal controls.
 <rubrics>
 **1st Tier - 100.00** 
 - Auditor is sufficiently independent 
@@ -180,7 +180,7 @@ Based on the rubrics and the information available, assess company: {company}'s 
 """
 
 [esg_tasks.edi_hcm]
-diversity_in_leadership = """
+diversity_in_leadership = """Below are the rubrics for assessing diversity in leadership.
 <rubrics>
 **1st Tier - 100.00**
 - First tier companies are distinguished by:
@@ -203,4 +203,154 @@ diversity_in_leadership = """
 **5th Tier - 0.00**
 - Fifth tier companies have no women on the board or in executive management.
 </rubrics>
-Based on the rubrics and the information available, assess company: {company}'s diversity in leadership"""
+Based on the rubrics and the information available, assess company: {company}'s diversity in leadership.
+"""
+
+workplace_equity = """Below are the rubrics for assessing workplace equity.
+<rubrics>
+**1st Tier - 100.00** 
+- First tier companies are distinguished by quantitative performance data and progress towards goals, \
+    and disclosures illustrating tailored, effective ED&I processes across almost all of the flilowing areas:
+    1. Executive Accountability 
+    2. Hiring/retention efforts 
+    3. Goals/targets 
+    4. Demographic data disclosure 
+    5. Pay equity/pay gap practices. 
+
+**2nd Tier - 75.00** 
+Second tier companies are distinguished by strong policies, quantitative performance \
+    data and goals across a majority of the following areas, but may not show meaningful progress to date:
+    1. Executive Accountability 
+    2. Hiring/retention efforts 
+    3. Goals/targets 
+    4. Demographic data disclosure 
+    5. Pay equity/pay gap practices. 
+
+**3rd Tier - 50.00** | Third tier companies have ED&I processes in place and \
+    quantitative performance data is provided, but do not specify goals for improvement. 
+
+**4th Tier - 25.00** | Fourth tier companies have limited ED&I processes in \
+    place and provide qualitative disclosures. 
+    
+**5th Tier - 0.00** 
+Fifth tier companies do not provide any ED&I disclosures. 
+</rubrics>
+Based on the rubrics and the information available, assess company: {company}'s workplace equity practices.
+"""
+
+human_capital_management = """Below are the rubrics for assessing human capital management.
+<rubrics>
+**1st Tier - 100.00**
+ First tier companies are distinguished by quantitative performance data and goals, \
+ and progressive approaches to address emerging or novel HCM needs across some or all of the following areas:
+    1. Talent Development 
+    2. Health & Wellness Benefits 
+    3. Employee Engagement
+
+
+ **2nd Tier - 75.00**
+ Second tier companies provide quantitative performance data across at least two of the following areas:
+    1. Talent Development 
+    2. Health & Wellness Benefits 
+    3. Employee Engagement
+
+
+ **3rd Tier - 50.00**
+ Third tier companies provide qualitative disclosures about any human capital management processes in place.
+
+
+ **4th Tier - 25.00**
+ Fourth tier companies have limited human capital management processes in place but no qualitative or quantitative information.
+
+
+ **5th Tier - 0.00**
+ Fifth tier companies do not provide any human capital management disclosures.
+</rubrics>
+Based on the rubrics and the information available, assess company: {company}'s human capital management practices.
+"""
+
+[esg_tasks.climate_change]
+transition_risk = """Below are the rubrics for assessing climate transition risk.
+<rubrics>
+***1st Tier - 100.00*** Leading Targets & Disclosure
+    - Disclosure: Scopes 1+2 and detailed Scope 3 emissions, including reference to material Scope 3 categories, as well as CDP reporting and detailed TCFD-aligned reporting.
+    - Management: Compensation incentives tied to emissions reductions
+    - Targets: Targets are science-based and Paris aligned with sectoral pathways to net zero, externally verified and include Scope 3 goals.
+    - Detailed action plans are disclosed on how targets are being met/ reductions achieved, and the company has reported y-o-y progress against targets.
+    
+**2nd Tier - 75.00** Above Average Targets & Disclosure
+    - Full disclosure across Scopes 1+2 emissions.
+    - Scope 3 data disclosed but possible data gaps for relevant/material Scope 3 categories. The company is likely to be in the process of filling data gaps and may have more qualitative narrative to support this in their disclosures e.g. engaging with suppliers to provide more complete and accurate emissions data.
+    - Reporting aligned to TCFD. 2nd tier companies will likely be disclosing across some or all of the TCFD pillars but may be lacking detail. This could, but does not necessarily have to be, through the CDP Climate Change questionnaire.
+    - Targets in place, covering scope 1 and 2 (absolute or intensity) but may exclude or not fully include relevant/material scope 3 emissions.Some detail on action plans on how targets are being met / reductions achieved, and reporting on progress against targets. May have qualitative narrative on more challenging reductions in specific business lines/activities. These activities must be active on the company’s part, and not passive to/entirely reliant on grid-based energy mix improvement.</ul></td>
+
+**3rd Tier - 50.00** Average Targets & Disclosure
+    - Full disclosure across Scopes 1+2 emissions.
+    - Limited Scope 3 data disclosed and not necessarily for most relevant or material Scope 3 categories, with little ambition to fill those gaps (eg. Only disclosing Business Travel).
+    - Reporting partially aligned to TCFD. 3rd tier companies will likely be disclosing TCFD headlines (e.g. may be a one-pager in Annual or Sust. Report), most likely around Climate Risk Management and Strategy. This could, but does not necessarily have to be, through the CDP Climate Change questionnaire.
+    - Any form of reduction target is in place for Scope 1+2 emissions. No reduction target for Scope 3 emissions.
+    High level details on plans to meet targets and/or how reductions have been achieved. Minimal evidence of supporting narrative on challenges.
+    
+**4th Tier - 25.00** Below Average Targets & Disclosure
+    - Some disclosure of emissions but company may acknowledge data gaps. It may not be clear that the information is aligned to the GHG protocol (eg. just disclosing “Fleet Emissions”). No scope 3 data is disclosed and no intention to collect the data is clear.
+    - TCFD may be cited but no disclosure across the for pillars, or reporting is under development.
+    - The company has committed to setting a target that covers scope 1 and 2 emissions in the next 1-2 years.
+
+**5th Tier - 0.00** No Targets & Disclosure
+    - No emissions disclosure in place. Company may mention that data/baseline is being collected.
+    - No targets are in place, and there is no clear commitment to set a target.
+</rubrics>
+Based on the rubrics and the information available, assess company: {company}'s climate transition disclosure and practices.
+"""
+
+physical_climate_risk = """Below are the rubrics for assessing physical climate risk.
+<rubrics>
+**1st Tier - 100.00**Leading Physical Climate Risk Analysis
+
+    - Climate Risk Assessment undertaken with scenario analysis, and attempts are made to quantify anticipated material financial impacts to the company (“value at risk”). This may or may not be through a detailed CDP response.
+    - Key locations disclosed. There is an indication of key exposures as per the TCFD/ISSB guidance, e.g. %/proportion of company plants/facilities that are based in water-stressed regions.
+    - Clear actions relating to resilience/adaptation taken or planned (motivated and ideally quantified), with detailed action plan.
+
+**2nd Tier - 75.00** Above Average Physical Climate Risk Analysis</b>
+
+    - Climate Risk Assessment undertaken with scenario analysis, although the impacts may not be directly quantified. This may be through a CDP response.
+    - Some key locations and related exposures disclosed. There is an indication of key exposures as per the TCFD/ISSB guidance, e.g. %/proportion of company plants/facilities that are based in water-stressed regions.
+    - Some actions relating to resilience/adaptation taken or planned.
+
+**3rd Tier - 50.00** Average Physical Climate Risk Analysis</b>
+
+    - Limited Climate Risk Assessment undertaken. Different scenarios are not explored. Company may have committed to undertake a more detailed/extensive assessment in the next 1-2 years. The analysis is not described in any great detail.
+    - Generic risk management plans disclosed. No specific actions relating to resilience/adaptation disclosed.
+
+**4th Tier - 25.00** Below Average Physical Climate Risk Analysis</b>
+
+    - Basic reference to PCR exposures and/or TCFD reporting, no climate risk assessment undertaken.
+
+**5th Tier - 0.00**No Physical Climate Risk Analysis
+No PCR disclosures or reference to the TCFD.
+
+</rubrics>
+Based on the rubrics and the information available, assess company: {company}'s physical climate risk practices.
+"""
+
+[esg_tasks.material_es]
+material_es = """
+We recognize the following material environmental and social materiality (E&S):
+- Natural Resources & Biodiversity 
+- Pollution and waste externalities 
+- Health & Safety Vulnerability 
+- Product liabilities (incl. cyber risks) 
+- Supply chain dependency
+- Bribery & Corruption 
+- Anti-trust and government regulations
+
+We use the following rubrics to assess performance in *EACH* pillar:
+<rubrics>
+**1st Tier - 100.00** State-of-the art management processes & reporting for all E&S Key Issues</td>
+**2nd Tier - 75.00** Best practice management processes & reporting for a significant majority of E&S</td>
+**3rd Tier - 50.00** Management processes & reporting for some, but not all, E&S Key Issues</td>
+**4th Tier - 25.00** Limited management processes & reporting</td>
+**5th Tier - 0.00** No, or regulatory compliance only, management processes & reporting</td>
+</rubrics>
+Based on the above, assess {company}'s performance in material E&S reporting.
+"""
