@@ -35,13 +35,16 @@ class NewESGReview:
     ):
         self.company = company_info
         self.task_descriptions = task_descriptions
-        self.expected_output = ("Detailed analysis of each point (including subpoints), together with your scoring "
-                                "and justification. You should write your answers in bullet point "
-                                "format, and clearly quote your sources, as well as give detailed "
-                                "justification. Do no just give one answer, provide details to the answer "
-                                "and your through process. If the template asks for multiple aspects, "
-                                "try to cover all aspects in bullet points. "
-                                )
+        self.expected_output = (
+            "Detailed analysis of each point (including subpoints), together with your scoring "
+            "and justification. You should write your answers in bullet point "
+            "format, and clearly quote your sources, as well as give detailed "
+            "justification. Do no just give one answer, provide details to the answer "
+            "and your through process. If the template asks for multiple aspects, "
+            "try to cover all aspects in bullet points. "
+            "It's ok if you can't get all the information neccessary. "
+            "Try to list all the evidence supporting the point you can find without giving a score. "
+            )
         self.async_exec = async_exec
         self.agent = agent  # TODO - bind tools with agents
 
