@@ -37,7 +37,9 @@ class NewESGReview:
         self.task_descriptions = task_descriptions
         self.expected_output = (
             "Detailed analysis of each point (including subpoints), together with your scoring "
-            "and justification. You should write your answers in bullet point "
+            "and justification. Justification is more important than scoreing. " 
+            "If you can't come with a total score it's fine. "
+            "You should write your answers in bullet point "
             "format, and clearly quote your sources, as well as give detailed "
             "justification. Do no just give one answer, provide details to the answer "
             "and your through process. If the template asks for multiple aspects, "
