@@ -4,7 +4,10 @@ from agents import (
     get_supervisor
 )
 from settings import function_llm, llm
-from tasks import get_new_esg_review_task
+from tasks import (
+    get_new_esg_review_task,
+    get_new_esg_data_collection_task
+)
 from tools import (
     get_query_engine_tool,
     RetrievalTools,
@@ -23,7 +26,11 @@ import os
 
 
 temp_dir = TemporaryDirectory()
-editor_tool = DirectoryReadTool(directory="workdir")
+editor_tools = [
+    DirectoryReadTool(directory="workdir"),
+    FileReadTool(),
+    FileWriterTool()
+]
 
 
 def analyze_esg(company_info, async_exec: bool = False):
@@ -37,28 +44,37 @@ def analyze_esg(company_info, async_exec: bool = False):
     #         collection_name="dev_esg_collection"
     #     )
 
-    tools = [retrieval_tool] + [
-        # DirectoryReadTool("workdir"), 
-        # FileReadTool(), 
+    tools = [
+        retrieval_tool,
+        # DirectoryReadTool("workdir"),
+        # FileReadTool(),
         FileWriterTool()
-        ]
+    ]
     supervisor = get_supervisor(coworkers=["editor", "esg_analyst"])
     esg_agent = get_esg_analyst(
         tools=tools
     )
-    editor = get_editor(tools=[editor_tool])
-    tasks = get_new_esg_review_task(
+    editor = get_editor(tools=editor_tools)
+    review_tasks = get_new_esg_review_task(
+        company_info,
+        tools=tools,
+        async_exec=async_exec,
+        agent=editor
+    )
+    data_collection_tasks = get_new_esg_data_collection_task(
         company_info,
         tools=tools,
         async_exec=async_exec,
         agent=esg_agent
     )
+    tasks = data_collection_tasks + review_tasks
     # run_id = langfuse_handler.session_id
     crew = Crew(
         agents=[esg_agent, editor],
         tasks=tasks,
         # process=Process.hierarchical,
-        process=Process.sequential, # FIXME - CrewPydanticOutputParser error unique to hierarchical
+        # FIXME - CrewPydanticOutputParser error unique to hierarchical
+        process=Process.sequential,
         verbose=True,
         # manager_llm=function_llm,
         manager_agent=supervisor,

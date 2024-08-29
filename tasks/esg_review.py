@@ -35,9 +35,17 @@ class NewESGReview:
     ):
         self.company = company_info
         self.task_descriptions = task_descriptions
+        self.intermediate_expected_output = (
+            "Collection detailed information about each point, and structure "
+            "them in bullet point formats so your teammates can use your outputs. "
+            "clearly quote your sources, as well as give detailed "
+            "justification. Do no just give one answer, provide details to the answer. "
+            "It's ok if you can't get all the information neccessary. "
+            "Try to list all the evidence supporting the point. "
+        )
         self.expected_output = (
             "Detailed analysis of each point (including subpoints), together with your scoring "
-            "and justification. Justification is more important than scoreing. " 
+            "and justification. Justification is more important than scoreing. "
             "If you can't come with a total score it's fine. "
             "You should write your answers in bullet point "
             "format, and clearly quote your sources, as well as give detailed "
@@ -46,63 +54,158 @@ class NewESGReview:
             "try to cover all aspects in bullet points. "
             "It's ok if you can't get all the information neccessary. "
             "Try to list all the evidence supporting the point you can find without giving a score. "
-            )
+        )
         self.async_exec = async_exec
         self.agent = agent  # TODO - bind tools with agents
+
+    def __get_task(
+            self,
+            section: str,
+            sub_section: str,
+            expected_output: str,
+            tools: List[BaseTool],
+            output_file: Optional[str] = None
+    ) -> Task:
+        task = Task(
+            description=populate_company_name(
+                self.task_descriptions[section][sub_section],
+                company_info=self.company),
+            async_execution=self.async_exec,
+            tools=tools,
+            agent=self.agent,
+            expected_output=expected_output,
+            output_file=output_file if output_file else f"workdir/{section}_{sub_section}_data.md"
+        )
+        return task
+
+    def _corp_governance_data(
+            self,
+            tools: Optional[List[BaseTool]],
+    ) -> List[Task]:
+        section = "corporate_governance"
+        board_structure = self.__get_task(
+            section=section,
+            sub_section="board_structure",
+            expected_output=self.intermediate_expected_output,
+            tools=tools
+        )
+
+        executive_comp = self.__get_task(
+            section=section,
+            sub_section="exec_compensation",
+            expected_output=self.intermediate_expected_output,
+            tools=tools
+        )
+        # Task(
+        #     description=populate_company_name(
+        #         self.task_descriptions["corporate_governance"]["exec_compensation"],
+        #         company_info=self.company),
+        #     async_execution=self.async_exec,
+        #     tools=tools,
+        #     agent=self.agent,
+        #     expected_output=self.expected_output,
+        #     output_file="workdir/corporate_governance_execcomp.md"
+        # )
+        shareholder_rights = self.__get_task(
+            section=section,
+            sub_section="shareholder_rights",
+            expected_output=self.intermediate_expected_output,
+            tools=tools
+        )
+        # Task(
+        #     description=populate_company_name(
+        #         self.task_descriptions["corporate_governance"]["shareholder_rights"],
+        #         company_info=self.company),
+        #     async_execution=self.async_exec,
+        #     agent=self.agent,
+        #     tools=tools,
+        #     expected_output=self.expected_output,
+        #     output_file="workdir/corporate_governance_shrights.md"
+        # )
+        internal_controls = self.__get_task(
+            section=section,
+            sub_section="internal_controls",
+            expected_output=self.intermediate_expected_output,
+            tools=tools
+        )
+        # Task(
+        #     description=populate_company_name(
+        #         self.task_descriptions["corporate_governance"]["internal_controls"],
+        #         company_info=self.company),
+        #     async_execution=self.async_exec,
+        #     agent=self.agent,
+        #     tools=tools,
+        #     expected_output=self.expected_output,
+        #     output_file="workdir/int_cont.md"
+        # )
+        governance_of_sustainability = self.__get_task(
+            section=section,
+            sub_section="governance_of_sustainability",
+            expected_output=self.intermediate_expected_output,
+            tools=tools
+        )
+        # Task(
+        #     description=populate_company_name(
+        #         self.task_descriptions["corporate_governance"]["governance_of_sustainability"],
+        #         company_info=self.company),
+        #     async_execution=self.async_exec,
+        #     agent=self.agent,
+        #     tools=tools,
+        #     expected_output=self.expected_output,
+        #     output_file="workdir/gov_sus.md"
+        # )
+        return [
+            board_structure,
+            executive_comp,
+            shareholder_rights,
+            internal_controls,
+            governance_of_sustainability
+        ]
 
     def corp_governance(
             self,
             tools: Optional[List[BaseTool]],
-    ):
-        board_structure = Task(
-            description=populate_company_name(
-                self.task_descriptions["corporate_governance"]["board_structure"],
-                company_info=self.company),
-            async_execution=self.async_exec,
-            tools=tools,
-            agent=self.agent,
+    ) -> List[BaseTool]:
+        section = "corporate_governance"
+
+        board_structure = self.__get_task(
+            section=section,
+            sub_section="board_structure",
             expected_output=self.expected_output,
-            output_file="workdir/corporate_governance_board.md"
+            tools=tools,
+            output_file=f"workdir/{section}_board_structure"
         )
-        executive_comp = Task(
-            description=populate_company_name(
-                self.task_descriptions["corporate_governance"]["exec_compensation"],
-                company_info=self.company),
-            async_execution=self.async_exec,
-            tools=tools,
-            agent=self.agent,
+
+        executive_comp = self.__get_task(
+            section=section,
+            sub_section="exec_compensation",
             expected_output=self.expected_output,
-            output_file="workdir/corporate_governance_execcomp.md"
+            tools=tools,
+            output_file=f"workdir/{section}_executive_compensation"
         )
-        shareholder_rights = Task(
-            description=populate_company_name(
-                self.task_descriptions["corporate_governance"]["shareholder_rights"],
-                company_info=self.company),
-            async_execution=self.async_exec,
-            agent=self.agent,
-            tools=tools,
+
+        shareholder_rights = self.__get_task(
+            section=section,
+            sub_section="shareholder_rights",
             expected_output=self.expected_output,
-            output_file="workdir/corporate_governance_shrights.md"
+            tools=tools,
+            output_file=f"workdir/{section}_shareholder_rights"
         )
-        internal_controls = Task(
-            description=populate_company_name(
-                self.task_descriptions["corporate_governance"]["internal_controls"],
-                company_info=self.company),
-            async_execution=self.async_exec,
-            agent=self.agent,
-            tools=tools,
+
+        internal_controls = self.__get_task(
+            section=section,
+            sub_section="internal_controls",
             expected_output=self.expected_output,
-            output_file="workdir/int_cont.md"
+            tools=tools,
+            output_file=f"workdir/{section}_internal_controls"
         )
-        governance_of_sustainability = Task(
-            description=populate_company_name(
-                self.task_descriptions["corporate_governance"]["governance_of_sustainability"],
-                company_info=self.company),
-            async_execution=self.async_exec,
-            agent=self.agent,
-            tools=tools,
+
+        governance_of_sustainability = self.__get_task(
+            section=section,
+            sub_section="governance_of_sustainability",
             expected_output=self.expected_output,
-            output_file="workdir/gov_sus.md"
+            tools=tools,
+            output_file=f"workdir/{section}_governance_of_sustainability"
         )
         return [
             board_structure,
