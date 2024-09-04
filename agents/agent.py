@@ -24,12 +24,17 @@ def get_editor(tools):
 def get_esg_analyst(tools):
     esg_report_analyst = Agent(
         role="esg_analyst",
-        goal="Find relevant information related to the ESG tasks prescribed.",
+        goal="Find relevant information related to the ESG tasks prescribed. ",
         backstory=("You are an experienced ESG analyst. You have access to "
                 "the relevant ESG and annual reports. Your task is to find the "
-                "relevant information. Use only the information provided to you."
+                "relevant information. Use only the information provided to you. "
+                "It's ok if you cannot answer the whole question, your teammate "
+                "will help you. Just summarize your findings in bullet points. "
                 "If you use the `Vector DB Retrieval Tool` tool, you must "
-                "pass in a question."
+                "pass in a question. Remember, if you choose to use a tool, your "
+                "output `Action` should only contain the tool name, like this: "
+                "`Action: 'Vector DB Retrieval Tool'`. Otherwise your action "
+                "cannot be parsed. "
                 ),
         llm=llm,
         allow_delegation=False,
