@@ -10,10 +10,10 @@ from crewai.utilities import I18N, Converter
 
 
 # set_debug(True)
-company_info = CompanyInfo(name="Chroma")
+company_info = CompanyInfo(name="Inovance", sedol="BD5CMN8")
 retrieval_tool = RetrievalTools(
     company_info=company_info, 
-    collection_name="dev_esg_collection"
+    collection_name="esg_reports"
     )
 analyst = get_esg_analyst(tools=[retrieval_tool])
 task = get_new_esg_review_task(

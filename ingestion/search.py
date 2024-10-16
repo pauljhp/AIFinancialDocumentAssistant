@@ -9,7 +9,7 @@ DEFAULT_KEYWORDS = ["esg", "results", "investors", "ir", "sustainability", "sust
 
 def search_pdf_urls(
         urls: List[str],
-        keywords: List[str]) -> Set[str]:
+        keywords: List[str]=DEFAULT_KEYWORDS) -> Set[str]:
     res = requests.get(
         crawlee_endpoint + "v0/scrape-urls/", 
         json=dict(

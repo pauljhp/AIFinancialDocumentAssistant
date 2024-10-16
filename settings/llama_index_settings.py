@@ -59,7 +59,8 @@ function_llm = AzureChatOpenAI(
     # strict=True
 )
 
-embed_model = FastEmbedEmbedding()
+embed_model = FastEmbedEmbedding(
+    model_name="BAAI/bge-small-en-v1.5")
 
 
 def set_global_configs():

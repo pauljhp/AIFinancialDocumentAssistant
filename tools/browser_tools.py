@@ -27,6 +27,6 @@ class BrowserTools:
         ses = requests.Session()
         res = ses.get(
             crawlee_endpoint + "v0/scrape-urls/",
-            params=kwargs
+            json=kwargs
             )
         return res

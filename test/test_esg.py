@@ -27,7 +27,7 @@ def test_esg_governance(companyinfo: CompanyInfo, async_exec: bool = False):
     return res
 
 def test_single_task(companyinfo: CompanyInfo, async_exec: bool = False):
-    tools = [RetrievalTools(companyinfo=companyinfo, collection_name="dev_esg_collection")]
+    tools = [RetrievalTools(companyinfo=companyinfo, collection_names=["esg_reports", "annual_reports"])]
     agent = get_esg_analyst(tools=tools)
     task = get_new_esg_review_task(company_info=companyinfo, tools=tools, agent=agent)
     res = agent.execute_task(task=task[0])
@@ -44,9 +44,10 @@ if __name__ == '__main__':
     argparser.add_argument("--async", dest="async_exec", action="store_true")
     argparser.add_argument("--debug", dest="debug", action="store_true")
     argparser.add_argument("--trace", "-T", dest="trace", action="store_true")
+    argparser.add_argument("--report-year", dest="report_year", default=2023)
     argparser.add_argument("--mode", dest="mode", default="full", help="two modes are availalbe, `single` and `full`.") # taks full or single
     args = argparser.parse_args()
-    companyinfo = CompanyInfo(isin=args.isin, name=args.name, sedol=args.sedol)
+    companyinfo = CompanyInfo(ISIN=args.isin, name=args.name, SEDOL=args.sedol, report_year=args.report_year)
     match args.mode:
         case "full": func = test_esg_governance
         case "single": func = test_single_task

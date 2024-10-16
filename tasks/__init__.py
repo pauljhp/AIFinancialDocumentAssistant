@@ -24,9 +24,15 @@ def get_new_esg_data_collection_task(
         async_exec=async_exec,
         agent=agent
     )
-    return review_cls._corp_governance_data(
-        tools=tools,
-    )
+    return review_cls._edi_hcm(
+            tools=tools,
+        ) + \
+        review_cls._climate_change(
+            tools=tools,
+        ) + \
+        review_cls._corp_governance_data(
+            tools=tools,
+        )
 
 
 def get_new_esg_review_task(

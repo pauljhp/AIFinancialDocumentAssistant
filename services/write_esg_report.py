@@ -37,8 +37,8 @@ def analyze_esg(company_info, async_exec: bool = False):
     set_global_configs()  # TODO - change to a decorator
     retrieval_tool = RetrievalTools(
         company_info=company_info,
-        collection_name="dev_esg_collection")
-
+        collection_names=["esg_reports", "annual_reports"])
+    retrieval_tool._initialize()
     # get_query_engine_tool(
     #         company_info=compny_info,
     #         collection_name="dev_esg_collection"

@@ -25,7 +25,7 @@ def get_supervisor(
         backstory=("You are an exprienced manager in the investment management  "
                 "industry. "),
         llm=llm,
-        function_calling_llm=function_llm,
+        # function_calling_llm=function_llm,
         # tools=tools
         # callbacks=[langfuse_callback_handler]
     )

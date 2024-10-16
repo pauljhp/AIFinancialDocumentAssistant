@@ -55,7 +55,120 @@ board_structure = """Below are the rubrics for assessing a company's corporate g
 - Executives on key committee * Board size < 6 or > 15 \
 - Significant votes against directors \
 - Presence of problem directors (associated w/financial, environmental, social or governance failures) \
-</rubrics>\
+</rubrics>
+
+<datafields>
+Board Independence
+- Key committee independence
+- Director independence and key committee independence
+- Board independence percentage
+- Independence of key committees
+- Independence of committees
+
+Separation of Chair and CEO roles
+- Separation of Chair and CEO roles
+- Separation of CEO and Chairman roles
+- if CEO and Chair roles separated
+
+Average NED tenure
+- Average NED tenure
+
+Overboarding concerns
+- Overboarding concerns
+- Overboarding/overcommitment of directors
+
+Attendance concerns
+- Attendance concerns
+- Attendance of directors
+
+Skills matrix disclosure
+- Skills matrix disclosure
+- Board skills matrix
+- Director skills matrix
+- Director skill matrix disclosure
+- Director range of skills/backgrounds
+- Director skills/expertise
+- Individual director skills and expertise
+
+Board refreshment
+- Board refreshment
+- Director tenure and board refreshment
+
+Board entrenchment
+- Board entrenchment
+- MSCI board entrenchment flag removal
+- Staggered board if any
+
+Lead director
+- Lead director
+- Lead independent director
+- Existence of Lead Independent Director
+
+CEO/CFO on the board
+- CEO/CFO on the board
+- CFO position and resources allocation
+
+Presence of flagged director
+- Presence of flagged director
+
+Business risk assessment
+- Business risk assessment
+
+Stakeholder Relationship committee
+- Stakeholder Relationship committee
+
+Statutory auditors and their independence
+- Statutory auditors and their independence
+
+Insider directors
+- Insider directors
+
+Board size and composition
+- Board size and composition
+
+Presence of government representatives on the board
+- Presence of government representatives on the board
+
+Negative votes received if any
+- Negative votes received if any
+
+Board diversity and independence
+- Board diversity and independence
+- Female representation on board
+
+Nomination and Remuneration Advisory Committees
+- Nomination and Remuneration Advisory Committees
+
+Familiarisation programme for independent/non-executive directors
+- Familiarisation programme for independent/non-executive directors
+
+Director evaluation process
+- Director evaluation process
+
+Policies for appointment of directors and senior management, and remuneration of directors and employees
+- Policies for appointment of directors and senior management, and remuneration of directors and employees
+
+Competences map highlighting complementary expertise at board level
+- Competences map highlighting complementary expertise at board level
+
+Board classification
+- Board classification
+- Board tiers
+
+ESG and human capital factors oversight
+- ESG and human capital factors oversight
+
+Female representation on board
+- Female representation on board
+
+Long-tenured directors
+- Long-tenured directors
+
+Annual director elections
+- Annual director elections
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s the board structure.
 """
 
@@ -107,6 +220,65 @@ exec_compensation = """Below are the rubrics for assessing the executive compens
 - Failed compensation proposals \
 - No advisory vote on executive compensation or no compensation information disclosed 
 </rubrics>
+
+<datafields>
+- Say-on-pay vote support percentage
+- Overall compensation levels for executive team
+- Discretionary awards
+- Relative metrics for PSUs
+- Performance-based and time-based equity
+- Clawback provision and stock ownership guidelines
+- CEO compensation linked to ESG metrics
+- Short and long term pay at risk
+- Minimum equity ownership for executives
+- Internal pay inequity between CEO and NEOs
+- Performance-insensitive one-off awards
+- Shareholder support for 'say-on-pay' vote
+- Limited clawback policy
+- Stock ownership requirements
+- Single-trigger CIC benefits
+- Single metric under LTIP
+- Levels of support for compensation program
+- Annual bonus metric
+- Relative metrics under the LTIP
+- Aggregate pay, annualized individual pay information for the CEO and executives
+- STI metrics based on company metrics, departmental/unit metrics, and individual targets
+- LTI metrics based on operating income and measured over four years with vesting period of two years
+- Clawback policy in place
+- STIs for CEO and CSO
+- Performance-vesting LTI awards
+- STIP awards with recovery provisions
+- Relevant performance metrics for STIP
+- Clawback and anti-hedging policy
+- Presence of ED&I and Climate Change goals in short-term incentive plan
+- Dual CEO structure with no fixed pay for lead CEO
+- Provision of no Clawback Policy and no Say on Pay Provisions
+- Executive pay linked to ESG/Sustainability Metrics
+- CEO not on Compensation committee
+- Slight misalignment of pay and company performance
+- Insufficient disclosure of LTIP performance goals
+- Similar metrics used under STIP and LTIP
+- Compensation linked to ESG metrics (safety & environment)
+- Stock ownership guideline for NEOs
+- ESG metrics for compensation
+- STIs based on operating cash flow and economic profit
+- LTIs
+- STI goal
+- Clawback policy
+- Executive stock ownership requirements
+- Special performance-based awards for some NEOs
+- ESG-Linked Pay
+- Pay Governance
+- CEO-to-median-employee pay ratio: Disclosed by some companies.
+- STI: Annual cash bonus based on adjusted EBIT, adjusted FCF, safety, operating margin, individual performance, and revenue growth.
+- LTI: Stock Options
+- Say on Pay
+- Performance-based pay
+- Insufficient disclosure if any
+</datafields>
+
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s executive compensation.
 """
 
@@ -126,6 +298,65 @@ shareholder_rights = """Below are the rubrics for assessing the shareholder righ
 - Repeated efforts to limit shareholder rights without shareholder consent 
 - Will of shareholders is subverted (e.g. failure to implement SHR proposal receiving majority support or address failed MGMT proposal) 
 </rubrics>
+
+<datafields>
+- Common Stock Details
+  - Share Class
+  - Ownership Structure and Significant Shareholders
+  - Controlling Shareholder Concerns
+  - Dual Share Class Structure and Dominant Shareholders
+  - No Dominant or Controlling Shareholders
+  - Shareholding Threshold to Call a Special Meeting
+  - Voting Power Required to Approve a Written Consent
+  - Shareholder Rights to Call a Special Meeting and Add an Agenda Item
+  - Requirements for Minimum Ownership Percentage or Market Value of Shares to Call a Special Meeting or Add an Agenda Item
+  - Shareholder Rights Limited or Non-existent due to Controlled Company Status or Unusual Share Structure
+  - CEO Entitlements in the Event of a Takeover
+  - Shareholder Rights and if They're Aligned with Global Peers
+
+- Board Election Details
+  - Annual Election of Directors
+  - Director Election Method
+  - Classified Board
+  - Staggered Board
+  - Plurality Director Election Method
+  - Board is Classified
+
+- Voting Power and Requirements
+  - Shareholders Voting Power Details
+  - Supermajority Voting Rights
+  - Voting Requirements for M&A Activity and Amending Provisions
+
+- Proxy Access
+  - Proxy Access
+  - Proxy Access in Place
+  - Proxy Access Provision
+
+- Poison Pill
+  - Poison Pill
+  - Trigger CIC or Poison Pill
+  - Poison Pill Provision
+
+- Other Shareholder Rights and Restrictions
+  - No Duplicates Found
+
+- Legal Actions and Forum Selection
+  - Designating Courts in the State of Delaware as the Sole and Exclusive Forum for Certain Legal Actions Against the Company
+  - Forum Selection Clauses
+
+- Anti-takeover Defenses
+  - No Duplicates Found
+
+- Miscellaneous
+  - Quorum Required to Pass Significant Decisions at General Meeting
+  - Limits on Shareholder Rights
+  - Presence of Controlling Shareholder or Sponsor with Significant Influence over All Matters Requiring Shareholder Approval
+  - Provisions in Governing Documents that Restrict Shareholder Rights, such as Classified Board, Exclusive Forum, Director Removal Only for Cause, Ability to Issue Preferred Stock and Alter Bylaws Without Stockholder Approval, and Supermajority Voting to Amend Governing Documents
+  - Absence of Takeover Defenses or Proxy Access
+  - Shareholder Rights and if They're Aligned with Global Peers
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s shareholder rights protection practices.
 """
 
@@ -151,6 +382,56 @@ internal_controls = """Below are the rubrics for assessing the internal controls
 - Ongoing accounting investigation * Poor transparency in financial statements 
 - Significant use of tax havens; reliance on tax avoidance central to company’s strategy 
 </rubrics>
+<datafields>
+1. Auditor Tenure and Independence
+   - Length of time auditors have been in place
+   - Tenure of the auditor
+   - Independence of auditors
+
+2. Audit Fees and Non-Audit Services
+   - Fee structure and reasonableness of audit fees
+   - Fees paid for non-audit-related services
+   - Proportion of non-audit related fees
+
+3. Restatements and Accounting Investigations
+   - Material weaknesses or restatements in the past 12 months
+   - Restatements or late filing issues
+   - Material accounting weaknesses or restatements
+   - Accounting investigations
+   - Accounting investigations and mis-statements
+   - Restatements and accounting investigations
+   - Accounting investigations or late filings
+   - SEC penalties for lapses in accounting practices
+
+4. Internal Controls
+   - Material weakness in internal controls if any
+   - Internal control systems and their effectiveness
+   - Optimization and effectiveness of internal control systems
+   - Adequacy and effectiveness of internal control systems
+   - Significant deficiencies in internal control
+   - Remediation plan to address control deficiencies
+   - Adequacy and effectiveness of internal control systems
+   - Effectiveness of internal controls over financial reporting
+   - Internal financial controls
+
+5. Related Party Transactions (RPTs)
+   - Material related party transactions
+   - Related party transactions (RPTs)
+   - Related party transactions (RPTs)
+   - Related party transactions (RPTs)
+   - Related party transactions (RPTs)
+   - Related party transactions (RPTs)
+   - Materiality of connected transactions
+   - Total RPTs and RPT policy
+   - Significant transactions with related parties
+   - Controlling shareholder RPTs
+   - Policies on RPTs
+
+6. Tax Issues
+   - Best in class tax transparency
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s internal control practices.
 """
 
@@ -176,6 +457,61 @@ governance_of_sustainability = """Below are the rubrics for assessing governance
 - Board and management oversight of sustainability issues is quite basic, not disclosed or not present. 
 - Sustainability expertise of individual board members or members of management not disclosed or not present. 
 </rubrics>
+
+<datafields>
+Board Level Oversight:
+- Board responsibility for overseeing and implementing ESG strategy
+- Review of ESG action plans, external reporting, and stakeholder feedback by the Risk Committee
+- Oversight of governance, systems, and controls of each Investment Franchise's approach to ESG investing
+- Oversight of ESG by the Board or Nominating and Governance Committee
+- Oversight of CSR strategy, performance, and risks by the Board
+- Primary oversight responsibility for significant issues of corporate social responsibility by the Nominating and Corporate Governance Committee
+- Board-level CSR/ESG Committee with strong attendance and separate Environment Management Cell
+- Board and committee oversight of environmental and social issues, including assessment of environmental risks
+- Board oversight and direct involvement in ESG and human capital management strategies, practices, and policies
+- Forums and committees comprised of senior leadership to ensure reporting and discussion of sustainability and climate risks and opportunities
+- Annual sustainability reports and corporate governance statements
+- Sustainability remit and responsibility
+
+Committees and Working Groups:
+- Details on board level oversight of committees including Nominating and Corporate Governance Committee, Compensation Committee, and Audit Committee
+- Operational oversight by senior leaders and working groups, such as the Corporate Responsibility Steering Committee
+- ESG Steering Committees, which are multi-disciplinary committees consisting of leaders from across the organization that meet regularly and report directly to the CEO
+- Cross-functional ESG and D&I Steering Committees with oversight by the Nominating and Corporate Governance Committee
+- Sustainability Steering Committee established to oversee ESG policies
+- ESG Council and ESG Committee in place
+- Sustainability committee responsible for setting sustainability goals
+- Sustainability global committee responsible for implementing global projects
+- Sustainability monthly meeting to discuss cross-division sustainability initiatives
+- Human Resources Committee overseeing CSR issues such as employee diversity
+- Vice President of ESG leading global ESG vision and strategy and reporting to the chair of the ESG Executive Steering Committee
+- Risk Committee overseeing business continuity and resiliency plans, including those related to climate risks
+- Global Impact Governance Committee
+- ESG executive steering committee and working group
+- Corporate sustainability council and board-level public responsibility committee
+- Internal education, engagement, and innovation teams
+
+Specific Responsibilities and Actions:
+- Hiring of Vice Presidents and Senior Vice Presidents for ESG
+- Formalization of ESG strategies and diligence processes, including the use of recycled materials in manufacturing and ESG diligence as part of overall diligence process used when evaluating potential acquisition targets
+- Empowerment of committees with distinct sustainability responsibilities
+- Robust ESG reporting structure
+- Appointment of Chief Sustainability Officer
+- Oversight of ESG metrics and maintenance of ESG program and goals
+- Target setting
+- Amendment of committee charter to add responsibility for overseeing ESG strategy, practices, and policies
+- Disclosure on sustainability governance or defined roles
+- Reviewing and monitoring the environmental sustainability strategy and its delivery, as well as environmental sustainability policies, standards, and guidelines
+- Integration of climate risks and opportunities into enterprise risk management
+- Training sessions on TCFD and CSR disclosure frameworks for Directors and Executives
+- Alignment with UNSDGs and prioritization of material topics for greatest impact
+- if Production of ESG report in alignment with leading reporting frameworks
+- Oversight and management of ESG program by executive teams and committees
+- Deep dive sessions for progress against sustainability targets
+- Internal sustainability scorecard review
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s governance of sustainability.
 """
 
@@ -203,6 +539,60 @@ diversity_in_leadership = """Below are the rubrics for assessing diversity in le
 **5th Tier - 0.00**
 - Fifth tier companies have no women on the board or in executive management.
 </rubrics>
+
+<datafields>
+1. Gender diversity and ethnic/racial diversity on the board and in senior leadership
+   - Representation of women in executive management and key managerial personnel
+   - Visible racial/ethnic diversity in leadership
+   - Ethnic/racial diversity in leadership positions
+   - Representation of LGBTQ+ individuals in leadership positions
+   - Reduction in ethnic diversity in executive management due to reduction in team size
+   - Specific individuals in leadership positions who are women and/or ethnic/racial minorities
+   - Percentage of women in leadership roles
+   - Percentage of racial/ethnic minorities in leadership roles
+   - Percentage of executives who identify as BIPOC and/or part of the LGBTQIA+ community
+   - Nationality diversity on the board
+   - Diversity of experience from both private and public sectors on the board
+   - Measurable objectives on board diversity
+   - Review of the implementation and effectiveness of the Board Diversity Policy on an annual basis.
+   - Disclosure of racial/ethnic diversity in key roles
+   - Partnerships with universities to increase diversity in candidate pools
+
+2. Adoption of diversity pledges and targets
+   - Rooney Rule adoption
+   - Rooney Rule or other policies in place to promote diversity in hiring
+   - Requests for diverse candidates in consideration for potential directors
+   - Compliance with gender diversity targets in Switzerland
+
+3. Inclusive and equitable work environment
+   - Inclusive and equitable work environment
+   - Inclusive leadership and eliminating bias
+   - Monitoring leadership issues in employee surveys
+   - Inclusive workplace and employer of choice for women
+
+4. Accountability of firm leaders and managers for progress towards diversity goals
+   - Accountability of firm leaders and managers for progress towards diversity goals
+
+5. Diversity and alternative performance measures used by the company
+
+6. Engagement with the company on gender diversity
+
+7. Poor board diversity disclosure in proxy statements.
+
+8. Goal to reach gender parity on the board by a certain year
+
+9. Company's diversity goals and targets
+
+10. Desire for greater clarity and transparency around objectives and performance expectations across all levels
+
+11. Diversity of thought index to measure demographic and cognitive diversity in senior management
+
+12. Advocating for disclosures and asking questions about companies' plans to navigate the energy transition.
+
+13. Quarterly follow-ups on gender diversity in promotions and new hire
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s diversity in leadership.
 """
 
@@ -235,6 +625,62 @@ Second tier companies are distinguished by strong policies, quantitative perform
 **5th Tier - 0.00** 
 Fifth tier companies do not provide any ED&I disclosures. 
 </rubrics>
+
+<datafields>
+1. Executive Accountability
+   - Accountability of the Board of Directors and Chief Human Resources Officer for human capital matters, including workplace equity
+   - Executive accountability for diversity and inclusion
+   - Investment in diversity and inclusion programs
+
+2. Hiring and Promotion Efforts
+   - Hiring initiatives to support diversity and inclusion
+   - Goals set for increasing representation of diverse backgrounds
+   - Demographic data on diversity representation
+   - Representation rates in interviews and new hires
+   - Outreach plan to support communities where the company does business
+   - Local employment at all operational and manufacturing locations
+   - Eliminating discrimination in hiring and employment termination practices
+
+3. Pay Equity
+   - Pay equity (not disclosed in some cases)
+   - Gender pay gap and compliance with relevant laws
+   - Female salary to male salary ratio
+   - Pay equality fully disclosed and almost zero
+   - Ensuring fair and competitive compensation and benefits
+
+4. Other Initiatives
+   - Unconscious bias training
+   - Employee resource groups
+   - Commitment to increase spend with diverse suppliers
+   - Policies to improve accessibility for differently abled employees
+   - Implicit or unconscious bias training
+   - Conducting annual documented development discussions/dialogues for all employees
+   - Diagnosis of the intervention of unconscious biases in employability, training processes, and subsequent women's career development in companies in the electricity sector
+
+5. Retention and Parental Leave
+   - Retention rates of employees after taking parental leave
+   - Turnover rates and tracking of male and female parental leave employees
+   - Voluntary attrition by demographic
+
+6. Diversity and Representation
+   - Diversity policy and representation of women in management and graduate recruitment
+   - Female workforce rate and representation in STEM
+   - Disclosure of disability and minority groups
+   - Comprehensive disclosure of diversity representation
+
+7. Union Agreements and Employee Unions
+   - Employees covered by union agreements
+   - Collective bargaining agreements & employee unions
+
+8. Employee Engagement and Development
+   - Engagement survey by race/gender/ethnicity
+   - Creating opportunities for employee education, development, and training
+
+9. Compliance and Accessibility
+   - Access to reproductive healthcare and compliance with applicable laws and regulations
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s workplace equity practices.
 """
 
@@ -266,6 +712,46 @@ human_capital_management = """Below are the rubrics for assessing human capital 
  **5th Tier - 0.00**
  Fifth tier companies do not provide any human capital management disclosures.
 </rubrics>
+
+<datafields>
+Talent Development:
+- Training and development opportunities
+- Leadership training
+- Talent reviews
+- Mentorship programs
+- Tuition reimbursement
+- College scholarship program
+- Optometrist mentorship program
+
+Compensation & Benefits:
+- Employee Stock Purchase Plan
+- Health insurance
+- Life and AD&D insurance
+- 401(k) Savings Plan
+- Vacation and paid holidays
+- Parental leave
+- Service awards
+- Employee referral bonuses
+- Employee discount programs
+- Minimum wage increase
+- Expanded maternity and paternity leave
+
+Employee Engagement:
+- Annual engagement surveys
+- Engagement channels such as Town Halls and monthly meetings
+- Overall engagement score improvement
+
+Health & Wellness:
+- Financial and wellness benefits
+- Mental health resource
+- Safety programs
+- Emergency helpline
+- Comprehensive insurance coverage
+- Tie-ups with hospitals
+
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s human capital management practices.
 """
 
@@ -300,6 +786,66 @@ transition_risk = """Below are the rubrics for assessing climate transition risk
     - No emissions disclosure in place. Company may mention that data/baseline is being collected.
     - No targets are in place, and there is no clear commitment to set a target.
 </rubrics>
+
+<datafields>
+- Reporting and Disclosure
+  - Reporting on Scope 1, 2, and 3 emissions data
+  - Restating energy and emissions data
+  - CDP reporting
+  - TCFD disclosures
+  - Annual reporting of Scope 1, 2, and 3 emissions
+  - GHG emissions not disclosed for some companies
+
+- Emissions Targets and Reduction Strategies
+  - Setting quantitative GHG reduction targets in alignment with the Paris Agreement
+  - Formalizing action plan to reduce the overall carbon footprint across the value chain
+  - Identifying areas to reduce Scope 1 and Scope 2 emissions
+  - Identifying elements to achieve carbon neutrality in own operations
+  - Working towards setting a time-bound target for emissions reduction/achieving carbon neutrality
+  - Short-term targets across Scope 1, 2, and 3 emissions
+  - SBTi validation of targets
+  - Net zero targets for entire value chain by 2045
+  - Elimination of coal across own manufacturing units by 2025
+  - Renewable energy targets for Scope 1,2 energy
+  - Action plan to reduce emissions in transportation
+  - Identification of sources of currently unavoidable emissions
+  - Targets for alternative fuel sources and renewable electricity
+  - Development of carbon accounting systems and tracking capabilities to manage and reduce scope 1 and 2 emissions
+  - Long-term climate targets, such as reducing GHG emissions intensity and achieving net zero by a certain year
+  - Plans to achieve climate targets, including sourcing clean energy, operational efficiencies, and raw materials substitution
+  - Science-based targets for emissions reduction
+  - Implementation of GHG reduction projects, such as LED light replacements and HVAC operation.
+  - Limitations in setting goals
+
+- Environmental Standards and Certifications
+  - TCFD aligned review of operations
+  - TCFD aligned reporting
+  - GHG monitoring and certification, such as ISO 14060 and ISO 50001
+  - LEED certification and sustainable features in facilities
+
+- Third-Party Engagement and Collaboration
+  - Engaged a third-party firm to conduct first-ever GHG inventory during 2019 and 2020
+  - Participation in initiatives such as CDP and SBTi
+
+- Sustainable Financing and Investments
+  - Framework for Sustainable Financing for sharper focus in sustainable lending practices
+  - Investment in clean energy infrastructure companies
+
+- Customer Engagement and Support
+  - Extending expertise to customers that are transitioning to decarbonize their business activities
+  - Sustainable innovations in products
+
+- Risk Assessment and Management
+  - Comprehensive analysis of transitional risks and opportunities
+  - Climate-related risks and opportunities assessment
+  - Direct physical impacts of climate change and deterioration of the natural environment disproportionately impacting the stability of livelihoods and health of lower socioeconomic groups
+  - Evolving social norms and emerging population risks associated with public health trends and demographic changes affecting customer lifestyles and impacting the level of claims under insurance product offerings
+  - Regulatory, ethical, and reputational risks associated with customer data misuse or security breaches arising from increasing digitalization of products, services, and processes
+  - New and unforeseen regulatory requirements and stakeholder expectations arising from increasing digitalization of products, services, and processes.
+
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
 Based on the rubrics and the information available, assess company: {company}'s climate transition disclosure and practices.
 """
 
@@ -328,9 +874,65 @@ physical_climate_risk = """Below are the rubrics for assessing physical climate 
 
 **5th Tier - 0.00**No Physical Climate Risk Analysis
 No PCR disclosures or reference to the TCFD.
-
 </rubrics>
-Based on the rubrics and the information available, assess company: {company}'s physical climate risk practices.
+
+You can use the following as a template for what to look for. 
+Tabulate how many of these indicators are disclosed, as well as if a target exists and if the performance is good (in terms of sequential improvement or relative performance).
+<datafields>
+1. Management's processes and procedures with regards to climate-related risks
+   - Management's risk assessment of climate-related risks
+   - Climate-related fraud risk factors
+
+2. Potential business implications of identified climate-related risks and opportunities
+   - Risk of material misstatement specific to climate relative to the valuation of non-current assets
+   - Revenue recognition and the risk of misstatement
+   - Appropriateness of the company's accounting policies relating to revenue recognition
+   - Compliance with IFRS 15
+   - Design and implementation of the company's internal control in the sales process
+   - Completeness of sales during the cut-off period
+
+3. Impact of climate-related risks and opportunities on the organization's businesses, strategy, and financial planning
+   - Resilience of the organization's strategy, taking into consideration different climate-related scenarios
+
+4. Acute and chronic physical climate-related risks
+   - Tools used to assess and manage potential impacts from physical climate-related risks
+   - Primary risks and effects of physical climate-related risks
+   - Vulnerabilities to infrastructure in specific locations
+
+5. TCFD-aligned climate scenario analysis
+   - Property risks assessment and supplier mapping to identify natural hazard risks
+   - Quantification of financial impact related to carbon pricing, climate strategy, and service demand shifts
+   - Use of climatic and operational scenarios to assess financial impact
+   - PCR assessment taken in relation to CDP questionnaire, including risks such as cyclonic events, drought, loss of pollinators, floods, precipitation, and water tables dropping
+   - Qualitative climate-related scenario analysis with a focus on regions/countries most exposed to climate change implications
+   - Disclosures within the CDP framework and in a dedicated TCFD report
+   - Hazards discussed include frequent typhoons, heavy rains/droughts, changes in rainfall patterns, rise in sea level, and rise in average temperatures, with considerations to both short and medium-term impacts       
+   - Water stress disclosure, including risks and potential costs
+   - Global climate risk assessment under two scenarios, using recommendations from the TCFD
+   - Identification of physical risks, transition risks, and opportunities
+   - Assessment of acute physical risks as part of risk management system, with efforts to minimize risks
+   - Acknowledgement of physical risks from climate, including natural disasters and extreme weather events.
+   - Completion of high-level qualitative PCR assessment to identify ways physical climate risk may affect the business.
+   - Leveraging TFCD gap analysis to proactively identify potential PCR risks on an annual basis.
+   - Factoring physical climate-related risks into business planning.
+   - Assessment of risks resulting from differing climate change scenarios
+   - Modelling and scenario testing against extreme climate-related events and disclosing potential costs.
+   - Developing new medium-to-long term climate strategy on the investment side.
+   - Expanding sustainable insurance solutions to mitigate the impacts of climate disasters and natural catastrophes.
+   - Managing climate change risks in natural catastrophe exposure management guidelines.
+   - Mitigating risks associated with physical climate-related risks through risk mitigation and disaster recovery plans.
+   - Incorporating physical climate-related risks into enterprise risk management approach.
+   - Acute and chronic physical risks
+   - Potential financial impact of physical risks
+   - Water stress and targets for water strategy
+   - Climate scenario analysis
+   - Risk assessment and management plans
+   - Frameworks and tools for climate risk assessment and scenario analysis
+   - Carbon-related ties to compensation
+</datafields>
+For each datafield, try to collect the information, then think about how many of these fields are disclosed (disclosure quality),
+performance vs its own history or peers, and their targets (if they have one, and if the target is aggressive enough).
+Based on the rubrics, the suggested template, and the information available, assess company: {company}'s physical climate risk practices.
 """
 
 [esg_tasks.material_es]

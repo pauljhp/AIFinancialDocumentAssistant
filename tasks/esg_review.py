@@ -96,64 +96,28 @@ class NewESGReview:
             expected_output=self.intermediate_expected_output,
             tools=tools
         )
-        # Task(
-        #     description=populate_company_name(
-        #         self.task_descriptions["corporate_governance"]["exec_compensation"],
-        #         company_info=self.company),
-        #     async_execution=self.async_exec,
-        #     tools=tools,
-        #     agent=self.agent,
-        #     expected_output=self.expected_output,
-        #     output_file="workdir/corporate_governance_execcomp.md"
-        # )
+
         shareholder_rights = self.__get_task(
             section=section,
             sub_section="shareholder_rights",
             expected_output=self.intermediate_expected_output,
             tools=tools
         )
-        # Task(
-        #     description=populate_company_name(
-        #         self.task_descriptions["corporate_governance"]["shareholder_rights"],
-        #         company_info=self.company),
-        #     async_execution=self.async_exec,
-        #     agent=self.agent,
-        #     tools=tools,
-        #     expected_output=self.expected_output,
-        #     output_file="workdir/corporate_governance_shrights.md"
-        # )
+
         internal_controls = self.__get_task(
             section=section,
             sub_section="internal_controls",
             expected_output=self.intermediate_expected_output,
             tools=tools
         )
-        # Task(
-        #     description=populate_company_name(
-        #         self.task_descriptions["corporate_governance"]["internal_controls"],
-        #         company_info=self.company),
-        #     async_execution=self.async_exec,
-        #     agent=self.agent,
-        #     tools=tools,
-        #     expected_output=self.expected_output,
-        #     output_file="workdir/int_cont.md"
-        # )
+
         governance_of_sustainability = self.__get_task(
             section=section,
             sub_section="governance_of_sustainability",
             expected_output=self.intermediate_expected_output,
             tools=tools
         )
-        # Task(
-        #     description=populate_company_name(
-        #         self.task_descriptions["corporate_governance"]["governance_of_sustainability"],
-        #         company_info=self.company),
-        #     async_execution=self.async_exec,
-        #     agent=self.agent,
-        #     tools=tools,
-        #     expected_output=self.expected_output,
-        #     output_file="workdir/gov_sus.md"
-        # )
+
         return [
             board_structure,
             executive_comp,
@@ -215,4 +179,53 @@ class NewESGReview:
             governance_of_sustainability
         ]
 
-    # def edi_hcm()
+    def _edi_hcm(
+            self,
+            tools: Optional[List[BaseTool]],
+    ) -> List[BaseTool]:
+        section = "edi_hcm"
+        diversity = self.__get_task(
+            section=section,
+            sub_section="diversity_in_leadership",
+            expected_output=self.intermediate_expected_output,
+            tools=tools,
+        )
+        wpe = self.__get_task(
+            section=section,
+            sub_section="workplace_equity",
+            expected_output=self.intermediate_expected_output,
+            tools=tools,
+        )
+        hcm = self.__get_task(
+            section=section,
+            sub_section="human_capital_management",
+            expected_output=self.intermediate_expected_output,
+            tools=tools,
+        )
+        return [
+            diversity,
+            wpe,
+            hcm
+        ]
+    
+    def _climate_change(
+            self,
+            tools: Optional[List[BaseTool]],
+    ) -> List[BaseTool]:
+        section = "climate_change"
+        transition = self.__get_task(
+            section=section,
+            sub_section="transition_risk",
+            expected_output=self.intermediate_expected_output,
+            tools=tools,
+        )
+        pcr = self.__get_task(
+            section=section,
+            sub_section="physical_climate_risk",
+            expected_output=self.intermediate_expected_output,
+            tools=tools,
+        )
+        return [
+            transition,
+            pcr
+        ]

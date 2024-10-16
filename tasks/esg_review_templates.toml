@@ -1,0 +1,37 @@
+title = "ESG Pillar Templates"
+
+[corporate_governance]
+communication_services = """-Director independence percentage: Governance
+-Key board committee independence percentages (audit, Nom/CG, Comp): Governance
+-Chair/CEO separation: Governance
+-Average NED tenure: Governance
+-Longest tenured director: Governance
+-Affiliated directors/founders/current executives on board: Governance
+-Director attendance issues: Governance
+-Skills matrix disclosure: Governance
+-LID appointment: Governance
+-Clawback/malus policy: Executive compensation
+-Board composition (number of directors, percentage of independent directors, gender/ethnic diversity): Governance, Diversity metrics
+-CEO succession planning: Governance
+-Director nomination process: Governance
+-Director appointment process: Governance
+-Board oversight responsibilities: Governance
+-Board performance evaluation process: Governance
+-Executive compensation structure: Executive compensation
+-Pay-for-performance grade: Executive compensation
+-STI/LTI structure and metrics: Executive compensation
+-One-time payments/awards: Executive compensation
+-ESG metrics in compensation structure: Executive compensation, Sustainability Goals and Targets
+-Anti-hedging policy: Governance
+-Triple-class capital structure (if applicable): Governance
+"""
+consumer_discretionary = """"""
+consumer_staples = """"""
+energy = """"""
+financials = """"""
+health_care = """"""
+industrials = """"""
+information_technology = """"""
+materials = """"""
+real_estate = """"""
+utilities = """"""

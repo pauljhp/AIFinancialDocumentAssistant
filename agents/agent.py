@@ -24,7 +24,9 @@ def get_editor(tools):
 def get_esg_analyst(tools):
     esg_report_analyst = Agent(
         role="esg_analyst",
-        goal="Find relevant information related to the ESG tasks prescribed. ",
+        goal="Find relevant information related to the ESG tasks prescribed "
+        "and summarize the related information into a readable, bullet format summary"
+        "so your teammates can use them.",
         backstory=("You are an experienced ESG analyst. You have access to "
                 "the relevant ESG and annual reports. Your task is to find the "
                 "relevant information. Use only the information provided to you. "
