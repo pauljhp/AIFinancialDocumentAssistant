@@ -1,6 +1,8 @@
 from pydantic import BaseModel
-from typing import Optional, List, Sequence, Annotated, Collection
+from typing import Optional, List, Sequence, Annotated, Collection, Literal, Dict
+from enum import Enum
 from qdrant_client.http import models
+from datetime import datetime
 
 
 class CompanyInfo(BaseModel):
@@ -39,3 +41,31 @@ class CompanyInfo(BaseModel):
             ]
         )
         return filter
+
+ESGSection = Literal[
+    "corporate_governance",
+    "climate_change",
+    "edi_hcm",
+    "materials_es"
+]
+
+ESGPillar = Literal[
+    "board_structure",
+    "exec_compensation",
+    "shareholder_rights",
+    "internal_controls",
+    "governance_of_sustainability",
+    "diversity_in_leadership",
+    "workplace_equity",
+    "human_capital_management",
+    "transition_risk",
+    "physical_climate_risk",
+    "material_es"
+]
+
+class ComputedResults(BaseModel):
+    company_info: CompanyInfo
+    esg_pillar: ESGPillar
+    results: str
+    result_source: List[Dict[str, str]] | Dict[str, str]
+    update_date: datetime=datetime.today()

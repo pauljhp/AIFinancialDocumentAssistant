@@ -38,12 +38,32 @@ li_llm = AzureOpenAI(
     temperature=0.
 )
 
+li_llm_4o = AzureOpenAI(
+    engine=os.getenv("AZURE_GPT4o_DEPLOYMENT_NAME"),
+    model="gpt-4o-mini",
+    api_key=os.getenv("AZURE_OPENAI_GPT4o_KEY"),
+    api_version=os.getenv("AZURE_GPT4o_API_VERSION"),
+    azure_endpoint=os.getenv("AZURE_GPT4o_ENDPOINT"),
+    callback_manager=callback_manager,
+    temperature=0.
+)
+
 llm = AzureChatOpenAI(
     deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
     model_name="gpt-35-turbo-16k",
     api_key=os.getenv("AZURE_OPENAI_API_KEY"),
     api_version=os.getenv("OPENAI_API_VERSION"),
     azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    callbacks=[langfuse_handler],
+    temperature=0.
+)
+
+llm_4o = AzureChatOpenAI(
+    deployment_name=os.getenv("AZURE_GPT4o_DEPLOYMENT_NAME"),
+    model_name="gpt-4o-mini",
+    api_key=os.getenv("AZURE_OPENAI_GPT4o_KEY"),
+    api_version=os.getenv("AZURE_GPT4o_API_VERSION"),
+    azure_endpoint=os.getenv("AZURE_GPT4o_ENDPOINT"),
     callbacks=[langfuse_handler],
     temperature=0.
 )
@@ -60,7 +80,8 @@ function_llm = AzureChatOpenAI(
 )
 
 embed_model = FastEmbedEmbedding(
-    model_name="BAAI/bge-small-en-v1.5")
+    model_name="BAAI/bge-small-en-v1.5"
+    )
 
 
 def set_global_configs():

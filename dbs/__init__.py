@@ -8,9 +8,19 @@ from llama_index.core import (
 from llama_index.core.postprocessor import SimilarityPostprocessor
 from llama_index.core.schema import NodeWithScore
 from qdrant_client import QdrantClient, models, AsyncQdrantClient
-from settings import embed_model, llm, li_llm
 import os
-from settings import embed_model
+
+from data_models import CompanyInfo, ESGPillar, ESGSection
+from settings import (
+    embed_model, 
+    llm, li_llm,
+    llm_4o, li_llm_4o
+)
+from .retrievers import (
+    rewrite_template,
+    get_base_retriever,
+    get_recursive_retriever
+)
 from typing import List, Dict, Tuple
 
 
@@ -19,13 +29,13 @@ qdrantclient = QdrantClient(
     qdrant_endpoint, 
     port=os.getenv("QDRANT_PORT"), 
     api_key=os.getenv("QDRANT_API_KEY"),
-    timeout=15
+    timeout=150
     )
 qdrantaclient = AsyncQdrantClient(
     qdrant_endpoint, 
     port=os.getenv("QDRANT_PORT"), 
     api_key=os.getenv("QDRANT_API_KEY"),
-    timeout=15
+    timeout=150
     )
 
 
@@ -36,6 +46,7 @@ def get_qdrantstore(collection_name: str="esg_reports"):
     #         parallel=2,
     #         collection_name=collection_name,
     #         enable_hybrid=True
+    
     #     )
     qdrant_store = QdrantVectorStore(
             aclient=qdrantaclient,
@@ -88,6 +99,29 @@ async def arun_queries(
 
     # results = [dict(query=query, result=result) for query, result in zip(queries, task_results)]
     return sorted(task_results, key=lambda x: x.score if x.score else 0.0, reverse=True)
+
+async def arun_esg_pillar(
+        company_info: CompanyInfo,
+        section: ESGSection,
+        subsection: ESGPillar,
+        collections: List[str]=["esg_reports", "annual_reports", "annual_report2"],  
+        llm=li_llm_4o
+    ):
+    retrievers = [
+        get_base_retriever(
+            get_index(collection), 
+            filters=company_info.as_qdrant_filter()
+            )
+        for collection in collections]
+    retrievers = [get_recursive_retriever(retriever) for retriever in retrievers]
+    rewritten_queries = rewrite_template(
+        company_info=company_info,
+        section=section,
+        subsection=subsection,
+        llm=llm
+    )
+    res = await arun_queries(queries=rewritten_queries, retrievers=retrievers)
+    return res
 
 def fuse_results(
         results: List[Dict[str, str]],#Dict[Tuple[QueryBundle, int], Dict[str, str]], 
