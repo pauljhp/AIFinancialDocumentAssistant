@@ -69,3 +69,22 @@ class ComputedResults(BaseModel):
     results: str
     result_source: List[Dict[str, str]] | Dict[str, str]
     update_date: datetime=datetime.today()
+
+
+class GetComputedResultsRequest(BaseModel):
+    composite_figi: Annotated[Optional[str], "Bloomberg FIGI of the company"] = None
+    ISIN: Annotated[Optional[str], "ISIN of the company"] = None
+    SEDOL: Annotated[Optional[str], "SEDOL of the company"] = None
+    short_name: Annotated[Optional[str], "short name of the company"] = None
+    name: Annotated[Optional[str], "full name of the company"] = None
+    report_year: Annotated[Optional[int], "report year. This is a must have filter"] = 2023
+    aliases: Optional[
+        Annotated[
+            Sequence[str], 
+            "Collection of the aliases the company is known as"]
+            ] = []
+    identifier_fields: List[str] = ["composite_figi", "SEDOL", "ISIN"]
+    # fields above for creating CompanyInfo object
+    section: ESGSection
+    subsection: ESGPillar
+    similarity_top_k: int=10

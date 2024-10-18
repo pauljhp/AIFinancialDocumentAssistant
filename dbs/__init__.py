@@ -104,13 +104,16 @@ async def arun_esg_pillar(
         company_info: CompanyInfo,
         section: ESGSection,
         subsection: ESGPillar,
-        collections: List[str]=["esg_reports", "annual_reports", "annual_report2"],  
+        collections: List[str]=["esg_reports", "annual_reports"],  
+        similarity_top_k: int=10,
+        num_queries: int=10,
         llm=li_llm_4o
     ):
     retrievers = [
         get_base_retriever(
             get_index(collection), 
-            filters=company_info.as_qdrant_filter()
+            filters=company_info.as_qdrant_filter(),
+            similarity_top_k=similarity_top_k
             )
         for collection in collections]
     retrievers = [get_recursive_retriever(retriever) for retriever in retrievers]
@@ -118,9 +121,11 @@ async def arun_esg_pillar(
         company_info=company_info,
         section=section,
         subsection=subsection,
-        llm=llm
+        llm=llm,
+        num_queries=num_queries
     )
-    res = await arun_queries(queries=rewritten_queries, retrievers=retrievers)
+    query_bundles = [get_query(q) for q in rewritten_queries]
+    res = await arun_queries(queries=query_bundles, retrievers=retrievers)
     return res
 
 def fuse_results(

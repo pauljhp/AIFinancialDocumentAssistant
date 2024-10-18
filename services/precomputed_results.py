@@ -1,14 +1,20 @@
 """read and write precomputed results to SQL DB"""
 
 from utils import SQLDatabase
-from data_models import CompanyInfo, ESGPillar, ComputedResults
+from data_models import CompanyInfo, ESGPillar, ESGSection, ComputedResults
+from dbs import arun_esg_pillar
+from tasks import get_pillar_template
+from settings import set_global_configs
+
+from llama_index.core import get_response_synthesizer
 import os
 import sqlalchemy
 import json
 from typing import Dict, List, Any
+from settings import li_llm_4o
 
 
-
+set_global_configs()
 engine = SQLDatabase().engine
 
 result_table_name = os.getenv("RESULT_SQL_TABLE")
@@ -56,3 +62,28 @@ def read_from_sql(company_info: CompanyInfo, esg_pillar: ESGPillar) -> List[Dict
     res = connection.execute(sqlalchemy.text(query)).fetchall()
     results = [dict(zip(columns, r)) for r in res]
     return results
+
+async def acompute_pillar_result(
+        company: CompanyInfo,
+        section: ESGSection,
+        subsection: ESGPillar,
+        similarity_top_k: int=10,
+        num_queries: int=10
+    ):
+    synthesizer = get_response_synthesizer(
+        llm=li_llm_4o
+    )
+    nodes = await arun_esg_pillar(
+        company_info=company,
+        section=section,
+        subsection=subsection,
+        similarity_top_k=similarity_top_k,
+        num_queries=num_queries
+    )
+    query = get_pillar_template(
+        company=company,
+        section=section,
+        subsection=subsection
+    )
+    res = await synthesizer.asynthesize(query=query, nodes=nodes)
+    return res

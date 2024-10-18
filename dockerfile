@@ -8,4 +8,5 @@ RUN conda -n ai_env \
                 llama-index-embeddings-azure-openai \
                 llama-index-postprocessor-cohere-rerank \
                 llama-index-vector-stores-qdrant \
-                pydantic
+                pydantic \
+                fastapi
