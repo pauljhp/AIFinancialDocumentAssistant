@@ -4,19 +4,27 @@ from data_models import (
     CompanyInfo,
     ESGPillar,
     ESGSection,
-    GetComputedResultsRequest
+    GetComputedResultsRequest,
+    ChatRequest
     )
 from services import (
     acompute_pillar_result,
     read_from_sql,
-    write_to_sql
+    write_to_sql,
+    get_chat_engine
 )
+from utils import get_random_uuid
+from services.chat import chat_store
+
 
 app = FastAPI(
     debug=True,
     title="Investment AI Assistant API",
     summary="API for AI powered investment assistant",
 )
+
+results = {}
+chat_engines = {}
 
 @app.get("/")
 def get_root():
@@ -59,3 +67,28 @@ async def get_results(items: GetComputedResultsRequest):
         similarity_top_k=items.similarity_top_k
     )
     return res
+
+@app.post("/v0/esg/chat/start-chat/")
+def start_chat(company: CompanyInfo):
+    session_id = str(get_random_uuid())
+    engine = get_chat_engine(
+        session_id=session_id,
+        company_info=company
+    )
+    chat_engines[session_id] = engine
+    return {"session_id": session_id}
+
+@app.post("/v0/esg/chat/{session_id}")
+def chat(items: ChatRequest):
+    engine = chat_engines[items.session_id]
+    res = engine.chat(items.question)
+    return res # TODO - clean up sources
+
+@app.get("/v0/esg/chat/get-chat-history/{session_id}")
+def get_chat_history(session_id: str):
+    return chat_store.get_messages(key=session_id)
+
+@app.put("/v0/esg/chat/clear-chat/{session_id}")
+def clear_chat(session_id: str):
+    chat_engines.pop(session_id)
+    chat_store.delete_messages(key=session_id)

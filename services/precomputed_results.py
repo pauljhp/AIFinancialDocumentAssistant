@@ -3,10 +3,14 @@
 from utils import SQLDatabase
 from data_models import CompanyInfo, ESGPillar, ESGSection, ComputedResults
 from dbs import arun_esg_pillar
-from tasks import get_pillar_template
+from tasks import get_pillar_template, get_pillar_datafields
 from settings import set_global_configs
-
+import datetime
 from llama_index.core import get_response_synthesizer
+from llama_index.core.response_synthesizers import(
+    ResponseMode,
+    TreeSummarize
+) 
 import os
 import sqlalchemy
 import json
@@ -52,15 +56,25 @@ def write_to_sql(results: ComputedResults):
         connection.execute(sqlalchemy.text(query))
         connection.commit()
 
-def read_from_sql(company_info: CompanyInfo, esg_pillar: ESGPillar) -> List[Dict[str, Any]]:
+def read_from_sql(company_info: CompanyInfo, esg_pillar: ESGPillar) -> List[ComputedResults]:
     query = (
-        f"SELECT * FROM {result_table_name} "
+        f"WITH temp AS "
+        f"(SELECT * FROM {result_table_name} "
         f"WHERE (ISIN = '{str(company_info.ISIN or '')}' or SEDOL = '{str(company_info.SEDOL or '')}' or composite_figi = '{str(company_info.composite_figi or '')}') "
-        f"AND (esg_pillar = '{esg_pillar}') "
+        f"AND (esg_pillar = '{esg_pillar}') )"
+        f"SELECT * FROM temp WHERE update_date = ( SELECT MAX(update_date) FROM temp)"
     )
     connection = engine.connect()
     res = connection.execute(sqlalchemy.text(query)).fetchall()
     results = [dict(zip(columns, r)) for r in res]
+    results = [ComputedResults(
+        company_info=company_info,
+        esg_pillar=esg_pillar,
+        results=res.get("results"),
+        result_source=json.loads(res.get("result_source")),
+        update_date=json.loads(datetime.datetime.strptime(res.get("update_date"), "%Y-%m-%d %H:%M:%S"))
+        )
+        ]
     return results
 
 async def acompute_pillar_result(
@@ -71,14 +85,18 @@ async def acompute_pillar_result(
         num_queries: int=10
     ):
     synthesizer = get_response_synthesizer(
-        llm=li_llm_4o
+        structured_answer_filtering=True,
+        llm=li_llm_4o,
+        response_mode=ResponseMode.REFINE,
+        use_async=True,
     )
     nodes = await arun_esg_pillar(
         company_info=company,
         section=section,
         subsection=subsection,
         similarity_top_k=similarity_top_k,
-        num_queries=num_queries
+        num_queries=num_queries,
+        recursive=True # TODO - look into search time out issue with non-recursive
     )
     query = get_pillar_template(
         company=company,
@@ -86,4 +104,19 @@ async def acompute_pillar_result(
         subsection=subsection
     )
     res = await synthesizer.asynthesize(query=query, nodes=nodes)
+    
+    source_files = {(node.metadata.get("source"), node.metadata.get("page_number"))
+                    for node in nodes}
+    sources = {source_file: [] for source_file in source_files}
+    for node in res.source_nodes:
+        sources[(node.metadata.get("source"), node.metadata.get("page_number"))].append(node.metadata.get("page_number"))
+    sources = {sf: set(pages) for sf, pages in sources.items()}
+    
+    res = ComputedResults(
+        company_info=company,
+        esg_pillar=subsection,
+        results=res.response,
+        result_source=sources,
+        update_date=datetime.datetime.today()
+    )
     return res

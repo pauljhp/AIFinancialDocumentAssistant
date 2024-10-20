@@ -6,3 +6,6 @@ from .precomputed_results import (
     read_from_sql,
     acompute_pillar_result
 )
+from .chat import (
+    get_chat_engine
+)

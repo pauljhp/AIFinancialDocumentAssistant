@@ -11,7 +11,7 @@ from qdrant_client.http.models import (
     # FieldCondition, 
     # MatchValue
 )
-from tasks import get_pillar_template
+from tasks import get_pillar_datafields
 from settings import (
     li_llm, 
     li_llm_4o
@@ -45,18 +45,20 @@ def generate_queries(
         num_queries: int = 15
         ):
         query_gen_prompt_str = (
-                "You are a helpful assistant that generates multiple search queries based on a "
-                "single input query. Generate {num_queries} search queries, one on each line. " 
+                "You are an intelligent analyst looking at companies' ESG performances. "
+                "You are given a larger question which needs to be broken down into steps. "
+                "Rewrite the larger question into smaller sizes as you see fit, with "
+                "around {num_queries} sub-queries. " 
                 "Note that some queries may contain acronyms, so try to be detailed in the "
                 "new queries you write. "
-                "ONLY GENERATE QUERIES AND DONT ANSWER TO QUERY"
-                "related to the following input query:\n"
-                "Query: {query}\n"
+                "ONLY GENERATE QUERIES AND DONT ANSWER. "
+                "Generate more queries for following input query:\n"
+                "Query: {query_str}\n"
                 "Queries:\n"
             )
         query_gen_prompt = PromptTemplate(query_gen_prompt_str)
         fmt_prompt = query_gen_prompt.format(
-            num_queries=num_queries - 1, query=query_str
+            num_queries=num_queries, query_str=query_str
         )
         response = llm.complete(fmt_prompt)
         queries = response.text.split("\n")
@@ -72,7 +74,7 @@ def rewrite_template(
           llm=li_llm_4o,
           num_queries: int=10
     ):
-    description = get_pillar_template(
+    description = get_pillar_datafields(
          company=company_info,
          section=section, 
          subsection=subsection,

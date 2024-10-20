@@ -101,8 +101,8 @@ def get_prompt_helper(context_window: int=128000) -> PromptHelper:
 
 def get_service_context(context_window: int=128000):
     prompt_helper = get_prompt_helper(context_window=context_window)
-    service_context = ServiceContext(
-        llm_predictor=li_llm_4o,
+    service_context = ServiceContext.from_defaults(
+        llm=li_llm_4o,
         prompt_helper=prompt_helper,
         embed_model=embed_model
     )

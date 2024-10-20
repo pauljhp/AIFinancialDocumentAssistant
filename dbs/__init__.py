@@ -5,9 +5,10 @@ from llama_index.core import (
     VectorStoreIndex, StorageContext, ServiceContext,
     QueryBundle
     )
-from llama_index.core.postprocessor import SimilarityPostprocessor
-from llama_index.core.schema import NodeWithScore
+# from llama_index.core.postprocessor import SimilarityPostprocessor
+# from llama_index.core.schema import NodeWithScore
 from qdrant_client import QdrantClient, models, AsyncQdrantClient
+from llama_index.core.retrievers import QueryFusionRetriever
 import os
 
 from data_models import CompanyInfo, ESGPillar, ESGSection
@@ -105,9 +106,10 @@ async def arun_esg_pillar(
         section: ESGSection,
         subsection: ESGPillar,
         collections: List[str]=["esg_reports", "annual_reports"],  
-        similarity_top_k: int=10,
+        similarity_top_k: int=30,
         num_queries: int=10,
-        llm=li_llm_4o
+        llm=li_llm_4o,
+        recursive: bool=True # FIXME - look into issue with recursive set to False (search time out)
     ):
     retrievers = [
         get_base_retriever(
@@ -116,7 +118,17 @@ async def arun_esg_pillar(
             similarity_top_k=similarity_top_k
             )
         for collection in collections]
-    retrievers = [get_recursive_retriever(retriever) for retriever in retrievers]
+    if recursive: 
+        retrievers = [get_recursive_retriever(retriever) for retriever in retrievers]
+    retriever = QueryFusionRetriever(
+        retrievers,
+        llm=llm,
+        mode="relative_score",
+        similarity_top_k=similarity_top_k,
+        use_async=True,
+        num_queries=1,
+        verbose=True # TODO - change to False for prod
+    )
     rewritten_queries = rewrite_template(
         company_info=company_info,
         section=section,
@@ -125,12 +137,12 @@ async def arun_esg_pillar(
         num_queries=num_queries
     )
     query_bundles = [get_query(q) for q in rewritten_queries]
-    res = await arun_queries(queries=query_bundles, retrievers=retrievers)
+    res = await arun_queries(queries=query_bundles, retrievers=[retriever])
     return res
 
 def fuse_results(
         results: List[Dict[str, str]],#Dict[Tuple[QueryBundle, int], Dict[str, str]], 
-        similarity_top_k: int = 10
+        similarity_top_k: int = 30
         ):
     k = 50.0  # `k` is a parameter used to control the impact of outlier rankings.
     fused_scores = {}

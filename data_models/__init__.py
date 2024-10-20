@@ -38,6 +38,10 @@ class CompanyInfo(BaseModel):
             should = [
                 models.FieldCondition(key=key, match=models.MatchValue(value=getattr(self, key)))
                 for key in self.identifier_fields if getattr(self, key)
+            ],
+            must_not=[
+                models.FieldCondition(key="category", match=models.MatchValue(value=v)) 
+                for v in ('Title') # prioritize non-title nodes
             ]
         )
         return filter
@@ -88,3 +92,29 @@ class GetComputedResultsRequest(BaseModel):
     section: ESGSection
     subsection: ESGPillar
     similarity_top_k: int=10
+
+class ChatRequest(BaseModel):
+    session_id: str
+    question: str
+
+existing_companies_column_names = Literal[
+    "composite_figi",
+    "ISIN",
+    "SEDOL",
+    "report_year",
+    "exitsts_in_collection",
+    "update_date",
+    "collection_name",
+    "name"
+]
+
+existing_companies_collection_names = Literal[
+    "composite_figi",
+    "ISIN",
+    "SEDOL",
+    "report_year",
+    "exitsts_in_collection",
+    "update_date",
+    "collection_name",
+    "company name"
+]

@@ -9,7 +9,8 @@ from crewai_tools import Tool
 
 curr_dir_path = Path(__file__).parent.resolve()
 task_descriptions = toml.load(
-    curr_dir_path.joinpath("task_descs.toml").as_posix())
+    curr_dir_path.joinpath("task_descs.toml").as_posix()
+    )
 
 
 def get_pillar_template(
@@ -17,9 +18,20 @@ def get_pillar_template(
         section: ESGSection, 
         subsection: ESGPillar
         ):
-    """get the populated template for the specified section"""
+    """get the populated rubrics for the specified section"""
     return populate_company_name(
         task_descriptions["esg_tasks"][section][subsection],
+        company_info=company
+        )
+
+def get_pillar_datafields(
+        company: CompanyInfo, 
+        section: ESGSection, 
+        subsection: ESGPillar
+        ):
+    """get the datafields to look for for the specified section"""
+    return populate_company_name(
+        task_descriptions["esg_datafields"][section][subsection],
         company_info=company
         )
 

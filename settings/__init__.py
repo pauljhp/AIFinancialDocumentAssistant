@@ -8,6 +8,6 @@ from .llama_index_settings import (
     embed_model,
     langfuse_callback_handler,
     langfuse_handler, # for langchain
-    callback_manager ,
+    callback_manager,
     get_service_context
 )
