@@ -4,7 +4,9 @@ from .write_esg_report import (
 from .precomputed_results import (
     write_to_sql,
     read_from_sql,
-    acompute_pillar_result
+    acompute_pillar_result,
+    get_computed_company_list,
+    get_existing_companies
 )
 from .chat import (
     get_chat_engine

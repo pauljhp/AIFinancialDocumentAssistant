@@ -11,7 +11,9 @@ from services import (
     acompute_pillar_result,
     read_from_sql,
     write_to_sql,
-    get_chat_engine
+    get_chat_engine,
+    get_existing_companies,
+    get_computed_company_list
 )
 from utils import get_random_uuid
 from services.chat import chat_store
@@ -29,6 +31,14 @@ chat_engines = {}
 @app.get("/")
 def get_root():
     return {"Introduction": "Investment AI Assistant API"}
+
+@app.get("/v0/esg/computed-companies")
+def get_computed_companies():
+    return get_computed_company_list()
+
+@app.get("/v0/esg/collected-companies")
+def get_collected_companies():
+    return get_existing_companies()
 
 @app.get("/v0/esg/pre-computed/results/")
 def get_results(items: GetComputedResultsRequest):

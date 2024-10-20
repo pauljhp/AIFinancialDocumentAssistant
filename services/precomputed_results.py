@@ -81,6 +81,63 @@ def read_from_sql(company_info: CompanyInfo, esg_pillar: ESGPillar) -> List[Comp
         ]
     return results
 
+def get_computed_company_list() -> List[CompanyInfo]:
+    query = (
+        "SELECT composite_figi, ISIN, SEDOL, short_name, report_year "
+        f"FROM {result_table_name} "
+        "WHERE (composite_figi IS NOT NULL) or (ISIN IS NOT NULL) or (SEDOL IS NOT NULL) "
+    )
+    with engine.connect() as conn:
+        res = pd.read_sql(sql=query, con=conn)
+    res.drop_duplicates(subset=["composite_figi", "ISIN", "SEDOL"])
+    results = [
+        CompanyInfo(
+            composite_figi=r.composite_figi,
+            ISIN=r.ISIN,
+            SEDOL=r.SEDOL,
+            name=r.short_name,
+            short_name=r.short_name,
+            report_year=r.report_year,
+            )
+        for _, r in res.iterrows()
+        ]
+    return results
+
+def get_existing_companies(collection_name="esg_reports") -> List[CompanyInfo]:
+    # TODO - handle existence in more than one collection
+    """get list of companeis already in the collection"""
+    query = (
+        "SELECT name, composite_figi, ISIN, SEDOL, report_year, collection_name, update_date  FROM "
+        "(SELECT name, composite_figi, ISIN, SEDOL, report_year, collection_name, update_date,  "
+	    "ROW_NUMBER() OVER(PARTITION BY composite_figi ORDER BY update_date DESC) rn "
+	    "FROM existing_companies ) a "
+        f"WHERE a.rn = 1 AND collection_name = '{collection_name}'; "
+    )
+    with engine.connect() as conn:
+        res = pd.read_sql(query, con=conn)
+    res = res.astype(
+        {
+            "composite_figi": str,
+            "ISIN": str,
+            "SEDOL": str,
+            "report_year": int,
+            "collection_name": str,
+            "update_date": "datetime64[ns]",
+            "name": str
+         }
+    )
+    results = [
+        CompanyInfo(
+            composite_figi=str(r.composite_figi or ""),
+            ISIN=str(r.ISIN or ""),
+            SEDOL=str(r.SEDOL or ""),
+            short_name=str(r["name"] or ""),
+            name=str(r["name"] or ""),
+            report_year=r.report_year
+        ) for _, r in res.iterrows()
+    ]
+    return results
+
 async def acompute_pillar_result(
         company: CompanyInfo,
         section: ESGSection,
