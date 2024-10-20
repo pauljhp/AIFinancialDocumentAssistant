@@ -19,7 +19,8 @@ def _get_existing_companies(
         collection_name: str, 
         filter: models.Filter,
         chunk_size: int=100,
-        offset: int=0
+        offset: int=0,
+        return_companyinfo: bool=False
         ) -> Tuple[Tuple[Any], str]:
     res, offset = qdrantclient.scroll(
         collection_name=collection_name,
@@ -30,7 +31,20 @@ def _get_existing_companies(
         offset=offset,
         timeout=150
     )
-    
+    today = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S") 
+    if return_companyinfo:
+        results = {
+            CompanyInfo(
+                composite_figi=str(r.payload.get("composite_figi", "") or ""),
+                ISIN=str(r.payload.get("ISIN", "") or ""),
+                SEDOL=str(r.payload.get("SEDOL", "") or ""),
+                report_year=r.payload.get("report_year", 0) or 0,
+                name=str(r.payload.get("company name", "") or ""),
+                short_name=str(r.payload.get("company name", "") or "")
+            ) for r in res
+        }
+        return results
+
     res = {
             (
             "'" + str(r.payload.get("composite_figi", "") or "") + "'",
@@ -38,7 +52,7 @@ def _get_existing_companies(
             "'" + str(r.payload.get("SEDOL", "") or "") + "'", 
             str(r.payload.get("report_year", 0) or ""),
             "1", # `exists_in_collection``
-            "'" + datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S") + "'",
+            "'" + today + "'",
             "'" + collection_name + "'",
             "'" + str(r.payload.get("company name", "") or "") + "'",
         ) 
@@ -86,18 +100,19 @@ def update_existing_companies(
         collection_name=collection_name, 
         count_filter=filter
         ).count
-    results = []
+    results = set()
     offset = 0
     for _ in range(0, n, chunk_size):
         res, offset = _get_existing_companies(
             collection_name=collection_name,
             filter=filter,
             chunk_size=chunk_size,
-            offset=offset
+            offset=offset,
         )
-        if write_to_sql:
+        results.update(res)
+    if write_to_sql:
+        for res in results:
             write_result_to_sql(res)
-        results += res
     return results
 
 # Mode = Literal[
