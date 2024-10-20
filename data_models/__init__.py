@@ -1,5 +1,8 @@
 from pydantic import BaseModel
-from typing import Optional, List, Sequence, Annotated, Collection, Literal, Dict
+from typing import (
+    Optional, List, Sequence, Annotated, 
+    Collection, Literal, Dict,
+    Hashable, Any)
 from enum import Enum
 from qdrant_client.http import models
 from datetime import datetime
@@ -71,7 +74,7 @@ class ComputedResults(BaseModel):
     company_info: CompanyInfo
     esg_pillar: ESGPillar
     results: str
-    result_source: List[Dict[str, str]] | Dict[str, str]
+    result_source: List[Dict[Hashable, Any]] | Dict[Hashable, Any]
     update_date: datetime=datetime.today()
 
 

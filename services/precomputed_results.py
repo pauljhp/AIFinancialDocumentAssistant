@@ -42,8 +42,8 @@ def write_to_sql(results: ComputedResults):
         str(results.company_info.SEDOL or ""),
         str(results.company_info.short_name or ""),
         str(results.company_info.report_year),
-        str(results.esg_pillar),
-        str(results.results),
+        str(results.esg_pillar or ""),
+        str(results.results or ""),
         json.dumps(results.result_source),
         results.update_date.strftime("%Y-%m-%d %H:%M:%S")
     ]
@@ -110,7 +110,14 @@ async def acompute_pillar_result(
     sources = {source_file: [] for source_file in source_files}
     for node in res.source_nodes:
         sources[(node.metadata.get("source"), node.metadata.get("page_number"))].append(node.metadata.get("page_number"))
-    sources = {sf: set(pages) for sf, pages in sources.items()}
+    sources = [
+        {
+            "document_name": sf[0],
+            "url": sf[1],
+            "pages": list(set(pages))
+            } 
+        for sf, pages in sources.items()
+        ]
     
     res = ComputedResults(
         company_info=company,
