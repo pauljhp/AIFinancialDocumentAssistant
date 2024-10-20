@@ -14,6 +14,7 @@ from llama_index.core.response_synthesizers import(
 import os
 import sqlalchemy
 import json
+import pandas as pd
 from typing import Dict, List, Any
 from settings import li_llm_4o
 
@@ -36,7 +37,8 @@ columns = [
 
 def write_to_sql(results: ComputedResults):
     """write result to SQL"""
-    res = [
+    res = dict(zip(columns, 
+                   [
         str(results.company_info.composite_figi or ""),
         str(results.company_info.ISIN or ""),
         str(results.company_info.SEDOL or ""),
@@ -46,15 +48,17 @@ def write_to_sql(results: ComputedResults):
         str(results.results or ""),
         json.dumps(results.result_source),
         results.update_date.strftime("%Y-%m-%d %H:%M:%S")
-    ]
-    query = (
-        f"INSERT INTO {result_table_name} "
-        f"({', '.join(columns)}) "
-        f"""VALUES ({', '.join([f"'{i}'" for i in res])}) """
-        )
+    ]))
+    res = pd.Series(res).to_frame().T
+    # query = (
+    #     f"INSERT INTO {result_table_name} "
+    #     f"({', '.join(columns)}) "
+    #     f"""VALUES ({', '.join([f"'{i}'" for i in res])}) """
+    #     )
     with engine.connect() as connection:
-        connection.execute(sqlalchemy.text(query))
-        connection.commit()
+        res.to_sql(result_table_name, if_exists="append", con=connection, index=False)
+        # connection.execute(sqlalchemy.text(query))
+        # connection.commit()
 
 def read_from_sql(company_info: CompanyInfo, esg_pillar: ESGPillar) -> List[ComputedResults]:
     query = (
@@ -104,20 +108,12 @@ async def acompute_pillar_result(
         subsection=subsection
     )
     res = await synthesizer.asynthesize(query=query, nodes=nodes)
-    
-    source_files = {(node.metadata.get("source"), node.metadata.get("page_number"))
-                    for node in nodes}
-    sources = {source_file: [] for source_file in source_files}
+    sources = {}
     for node in res.source_nodes:
-        sources[(node.metadata.get("source"), node.metadata.get("page_number"))].append(node.metadata.get("page_number"))
-    sources = [
-        {
-            "document_name": sf[0],
-            "url": sf[1],
-            "pages": list(set(pages))
-            } 
-        for sf, pages in sources.items()
-        ]
+        if node.metadata.get("url") not in sources.keys():
+            sources[node.metadata.get("url")] = [node.metadata.get("page_number")]
+        else:
+            sources[node.metadata.get("url")].append(node.metadata.get("page_number"))
     
     res = ComputedResults(
         company_info=company,

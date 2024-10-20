@@ -16,7 +16,7 @@ from llama_index.core.tools import (
     ToolMetadata,
 )
 from typing import List, Dict, Annotated, Type, Any, Callable, Optional
-from viztracer import log_sparse
+# from viztracer import log_sparse
 from crewai.utilities import Printer
 import asyncio
 
@@ -98,7 +98,7 @@ class RetrievalTools(BaseTool):
     collection_names: List[str] = ["esg_reports", "annual_reports"]
     retrievers_: Optional[List[Callable]] = None
 
-    @log_sparse
+    # @log_sparse
     def __init__(
             self, 
             collection_names: List[str],
