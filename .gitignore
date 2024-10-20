@@ -8,6 +8,9 @@ schema/
 data/
 db/ 
 
+# docker file
+dockerfile
+
 # notebooks
 write_to_sql.ipynb
 
