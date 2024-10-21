@@ -40,7 +40,7 @@ def get_computed_companies():
 def get_collected_companies():
     return get_existing_companies()
 
-@app.get("/v0/esg/pre-computed/results/")
+@app.post("/v0/esg/pre-computed/results/")
 def get_results(items: GetComputedResultsRequest):
     company = CompanyInfo(
         composite_figi=items.composite_figi,

@@ -69,6 +69,11 @@ def read_from_sql(company_info: CompanyInfo, esg_pillar: ESGPillar) -> List[Comp
         f"SELECT * FROM temp WHERE update_date = ( SELECT MAX(update_date) FROM temp)"
     )
     connection = engine.connect()
+    
+    # results = pd.read_sql(query, con=connection)
+    # results = results.astype({"update_date": "datetime64[ns]"})
+    # results["result_source"] = results["result_source"].apply(json.loads)
+
     res = connection.execute(sqlalchemy.text(query)).fetchall()
     results = [dict(zip(columns, r)) for r in res]
     results = [ComputedResults(
@@ -76,8 +81,8 @@ def read_from_sql(company_info: CompanyInfo, esg_pillar: ESGPillar) -> List[Comp
         esg_pillar=esg_pillar,
         results=res.get("results"),
         result_source=json.loads(res.get("result_source")),
-        update_date=json.loads(datetime.datetime.strptime(res.get("update_date"), "%Y-%m-%d %H:%M:%S"))
-        )
+        update_date=res.get("update_date")#json.loads(datetime.datetime.strptime(res.get("update_date"), "%Y-%m-%d %H:%M:%S"))
+        ) for res in results
         ]
     return results
 

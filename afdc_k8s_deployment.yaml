@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-financial-assistant-api
+  namespace: ai-assistant
+  labels:
+    assigned: aiapi
+    agentpool: aiasstntpool
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      assigned: aiapi
+      agentpool: aiasstntpool
+  template:
+    metadata:
+      labels:
+        assigned: aiapi
+        agentpool: aiasstntpool
+    spec:
+      containers:
+        - name: ai-financial-document-assistant
+          image: impaxapitest.azurecr.io/aifinancialdocumentassistant:v0.1
+          imagePullPolicy: IfNotPresent
+      imagePullSecrets:
+      - name: impaxapitest-cred 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-assistant-entrypoint
+  namespace: ai-assistant
+spec:
+  type: LoadBalancer
+  selector:
+    assigned: aiapi
+    agentpool: aiasstntpool
+  ports:
+    - port: 8000
+      targetPort: 8000
