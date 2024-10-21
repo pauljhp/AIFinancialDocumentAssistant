@@ -27,6 +27,7 @@ app = FastAPI(
 
 results = {}
 chat_engines = {}
+chat_engine_map = {}
 
 @app.get("/")
 def get_root():
@@ -86,6 +87,7 @@ def start_chat(company: CompanyInfo):
         company_info=company
     )
     chat_engines[session_id] = engine
+    chat_engine_map[session_id] = company
     return {"session_id": session_id}
 
 @app.post("/v0/esg/chat/{session_id}")
@@ -102,3 +104,7 @@ def get_chat_history(session_id: str):
 def clear_chat(session_id: str):
     chat_engines.pop(session_id)
     chat_store.delete_messages(key=session_id)
+
+@app.get("/v0/esg/chat/active-chat-sessions/")
+def get_active_sessions():
+    return chat_engine_map
