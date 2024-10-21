@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net" modified="2024-10-21T10:19:47.482Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" etag="7Nv-0TdX3dmYqtbBd80C" version="20.1.1" type="github">
+  <diagram id="tmc6DzVFnJO1wLUBKDYH" name="Page-1">
+    <mxGraphModel dx="1377" dy="759" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HovcwMmP69qifJoBiwdF-2" value="Azure OpenAI" style="swimlane;" vertex="1" parent="1">
+          <mxGeometry x="60" y="70" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-3" value="Data Sources" style="swimlane;" vertex="1" parent="1">
+          <mxGeometry x="50" y="340" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-14" value="Sustainability Reports" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HovcwMmP69qifJoBiwdF-3">
+          <mxGeometry x="30" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-15" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HovcwMmP69qifJoBiwdF-3">
+          <mxGeometry x="30" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-4" value="Database" style="swimlane;" vertex="1" parent="1">
+          <mxGeometry x="425" y="80" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-9" value="Custom Vector Base (Qdrant)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HovcwMmP69qifJoBiwdF-4">
+          <mxGeometry x="35" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-5" value="API" style="swimlane;" vertex="1" parent="1">
+          <mxGeometry x="570" y="340" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-8" value="Data Ingestion Pipeline" style="swimlane;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="570" width="470" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-6" value="Impax AI Assistant" style="swimlane;" vertex="1" parent="HovcwMmP69qifJoBiwdF-8">
+          <mxGeometry x="70" y="20" width="220" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-7" value="AI Assistant" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HovcwMmP69qifJoBiwdF-6">
+          <mxGeometry x="30" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-10" value="Data Ingestion Pipline" style="swimlane;startSize=23;" vertex="1" parent="HovcwMmP69qifJoBiwdF-8">
+          <mxGeometry x="70" y="170" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-11" value="PDF parser" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HovcwMmP69qifJoBiwdF-10">
+          <mxGeometry x="40" y="50" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-12" value="Chunking" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HovcwMmP69qifJoBiwdF-10">
+          <mxGeometry x="40" y="90" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HovcwMmP69qifJoBiwdF-13" value="Metadata" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HovcwMmP69qifJoBiwdF-10">
+          <mxGeometry x="40" y="140" width="110" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
