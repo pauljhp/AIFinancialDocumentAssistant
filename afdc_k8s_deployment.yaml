@@ -21,7 +21,7 @@ spec:
       containers:
         - name: ai-financial-document-assistant
           image: impaxapitest.azurecr.io/aifinancialdocumentassistant:v0.1
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
       imagePullSecrets:
       - name: impaxapitest-cred 
 ---

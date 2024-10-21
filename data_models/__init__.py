@@ -74,7 +74,7 @@ class ComputedResults(BaseModel):
     company_info: CompanyInfo
     esg_pillar: ESGPillar
     results: str
-    result_source: List[Dict[Hashable, Any]] | Dict[Hashable, Any]
+    result_source: str #List[Dict[Hashable, Any]] | Dict[Hashable, Any]
     update_date: datetime=datetime.today()
 
 

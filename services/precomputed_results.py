@@ -80,7 +80,7 @@ def read_from_sql(company_info: CompanyInfo, esg_pillar: ESGPillar) -> List[Comp
         company_info=company_info,
         esg_pillar=esg_pillar,
         results=res.get("results"),
-        result_source=json.loads(res.get("result_source")),
+        result_source=res.get("result_source"),
         update_date=res.get("update_date")#json.loads(datetime.datetime.strptime(res.get("update_date"), "%Y-%m-%d %H:%M:%S"))
         ) for res in results
         ]
